@@ -9,7 +9,7 @@ class Employee extends \App\core\Model {
     public $first_name;
     public $last_name;
     public $email;
-    public $phoneNo;
+    public $phone_No;
 
     public function __construct() {
         parent::__construct();
@@ -36,10 +36,10 @@ class Employee extends \App\core\Model {
     }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO employee(user_id, first_name, last_name, email, phoneNo) 
-        VALUES (:user_id, :first_name, :last_name, :email, :phoneNo)");
+        $stmt = self::$connection->prepare("INSERT INTO employee(user_id, first_name, last_name, email, phone_No) 
+        VALUES (:user_id, :first_name, :last_name, :email, :phone_No)");
         $stmt->execute(['user_id' => $this->user_id, 'first_name' =>
-            $this->first_name, 'last_name' => $this->last_name, 'email' => $this->email, 'phoneNo' => $this->phoneNo]);
+            $this->first_name, 'last_name' => $this->last_name, 'email' => $this->email, 'phone_No' => $this->phone_No]);
     }
 
     public function delete() {
@@ -49,9 +49,9 @@ class Employee extends \App\core\Model {
 
     public function update() {
         $stmt = self::$connection->prepare("UPDATE employee SET first_name=:first_name, last_name=:last_name,
-        email=:email, phoneNo=:phoneNo WHERE employee_id=:employee_id");
+        email=:email, phone_No=:phone_No WHERE employee_id=:employee_id");
         $stmt->execute(['first_name' => $this->first_name, 'last_name' => $this->last_name,
-            'email' => $this->email, 'phoneNo' => $this->phoneNo, 'employee_id' => $this->employee_id]);
+            'email' => $this->email, 'phone_No' => $this->phone_No, 'employee_id' => $this->employee_id]);
     }
 
 }
