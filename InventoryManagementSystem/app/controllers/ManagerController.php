@@ -25,12 +25,11 @@ class ManagerController extends \App\core\Controller {
             $employee->insert();
             header("location:" . BASE . "/Manager/index/");
         } else {
-            // $this->view('Manager/createEmployee', $employee);
+            $this->view('Manager/addEmployee');
         }
     }
 
     function promote($employee_id) {
-        if (isset($_POST["action"])) {
             $employee = new \App\models\Employee();
             $manager = new \App\models\Manager();
 
@@ -45,13 +44,9 @@ class ManagerController extends \App\core\Controller {
             $manager->insert();
             $employee->delete();
             header("location:" . BASE . "/Manager/index/");
-        } else {
-            // $this->view('Manager/promote', $employee);
-        }
     }
 
     function demote($manager_id) {
-        if (isset($_POST["action"])) {
             $employee = new \App\models\Employee();
             $manager = new \App\models\Manager();
 
@@ -66,11 +61,7 @@ class ManagerController extends \App\core\Controller {
             $employee->insert();
             $manager->delete();
             header("location:" . BASE . "/Manager/index/");
-        } else {
-            // $this->view('Manager/demote', $manager_id);
-        }
     }
-
 }
 
 ?>
