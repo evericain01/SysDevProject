@@ -4,6 +4,13 @@ namespace App\controllers;
 
 class ManagerController extends \App\core\Controller {
     function index() {
+        $employee = new \App\models\Employee();
+        $manager = new \App\models\Manager();
+
+        $employee = $employee->getAllEmployees();
+        $manager = $manager->getAllManagers();
+
+        // $this->view('Manager/mainPage', ['managers'=> $manager, 'employees' => $employee]);
     }
 
     function addEmployee() {
@@ -18,7 +25,7 @@ class ManagerController extends \App\core\Controller {
             $employee->insert();
             header("location:" . BASE . "/Manager/index/");
         } else {
-            // $this->view('Employee/createEmployee', $employee);
+            // $this->view('Manager/createEmployee', $employee);
         }
     }
 
@@ -27,7 +34,7 @@ class ManagerController extends \App\core\Controller {
             $employee = new \App\models\Employee();
             $manager = new \App\models\Manager();
 
-            $employee = $employee->find($employee);
+            $employee = $employee->find($employee_id);
 
             $manager->user_id = $_SESSION['user_id'];
             $manager->first_name = $_POST["first_name"];
@@ -39,7 +46,7 @@ class ManagerController extends \App\core\Controller {
             $employee->delete();
             header("location:" . BASE . "/Manager/index/");
         } else {
-            // $this->view('Employee/createEmployee', $employee);
+            // $this->view('Manager/promote', $employee);
         }
     }
 
@@ -48,7 +55,7 @@ class ManagerController extends \App\core\Controller {
             $employee = new \App\models\Employee();
             $manager = new \App\models\Manager();
 
-            $manager = $manager->find($employee);
+            $manager = $manager->find($manager_id);
 
             $employee->user_id = $_SESSION['user_id'];
             $employee->first_name = $_POST["first_name"];
@@ -60,7 +67,7 @@ class ManagerController extends \App\core\Controller {
             $manager->delete();
             header("location:" . BASE . "/Manager/index/");
         } else {
-            // $this->view('Employee/createEmployee', $employee);
+            // $this->view('Manager/demote', $manager_id);
         }
     }
 
