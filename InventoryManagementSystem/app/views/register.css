@@ -1,0 +1,137 @@
+body {
+	background-color: lightgrey; 
+}
+
+.language {
+	float: right;
+	color: white;
+    text-align: center;
+    padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+.w3-teal a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.logout {
+	float: right;
+	color: white;
+    text-align: center;
+    padding: 14px 17px;
+	text-decoration: none;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+.username {
+	position: absolute;
+	top: 100px;
+	left: 20px;
+	font-size: 20px;
+}
+
+.inputbox1 {
+	position: absolute;
+	top: 100px;
+	left: 230px;
+	font-size: 20px;
+}
+
+.fname {
+	position: absolute;
+	top: 150px;
+	left: 20px;
+	font-size: 20px;
+}
+
+.inputbox2 {
+	position: absolute;
+	top: 150px;
+	left: 230px;
+	font-size: 20px;
+}
+
+.lname {
+	position: absolute;
+	top: 200px;
+	left: 20px;
+	font-size: 20px;
+}
+
+.inputbox3 {
+	position: absolute;
+	top: 200px;
+	left: 230px;
+	font-size: 20px;
+}
+
+.email {
+	position: absolute;
+	top: 250px;
+	left: 20px;
+	font-size: 20px;
+}
+
+.inputbox4 {
+	position: absolute;
+	top: 250px;
+	left: 230px;
+	font-size: 20px;
+}
+
+
+.dropdown {
+	position: absolute;
+	top: 300px;
+	left: 20px;
+	font-size: 20px;
+}
+
+.options {
+	position: absolute;
+	top: 305px;
+	left: 230px;
+	font-size: 20px;
+}
+
+.password {
+	position: absolute;
+	top: 425px;
+	left: 20px;
+	font-size: 20px;
+}
+
+.inputbox5 {
+	position: absolute;
+	top: 425px;
+	left: 230px;
+	font-size: 20px;
+}
+
+.password2 {
+	position: absolute;
+	top: 475px;
+	left: 20px;
+	font-size: 20px;
+}
+
+.inputbox6 {
+	position: absolute;
+	top: 475px;
+	left: 230px;
+	font-size: 20px;
+}
+
+.button {
+	position: absolute;
+	top: 530px;
+	left: 20px;
+	font-size: 20px;
+	background-color: lightblue;
+	cursor: pointer;
+}
+
