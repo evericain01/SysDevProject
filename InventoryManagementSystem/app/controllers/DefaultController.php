@@ -5,7 +5,18 @@ namespace App\controllers;
 class DefaultController extends \App\core\Controller {
 
     function index() {
-        $this->view('Default/index');
+        // $employee = new \App\models\Employee();
+        // $manager = new \App\models\Manager();
+
+        // $employee = $employee->findUserId($_SESSION['user_id']);
+        // $manager = $manager->findUserId($_SESSION['user_id']);
+
+        // if($employee->employee_id == null) {
+        //     $this->view('Employee/index');
+        // }else {
+        //     $this->view('Manager/index');
+        // }
+        $this->view('Default/login');
     }
 
     function register() {

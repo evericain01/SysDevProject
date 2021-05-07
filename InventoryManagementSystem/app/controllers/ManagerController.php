@@ -29,6 +29,10 @@ class ManagerController extends \App\core\Controller {
         }
     }
 
+    function addUser() {
+        $this->view('Default/register');
+    }
+
     function promote($employee_id) {
             $employee = new \App\models\Employee();
             $manager = new \App\models\Manager();
