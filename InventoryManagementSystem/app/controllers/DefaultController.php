@@ -16,7 +16,7 @@ class DefaultController extends \App\core\Controller {
         // }else {
         //     $this->view('Manager/index');
         // }
-        $this->view('Default/login');
+        $this->view('Login/login');
     }
 
     function register() {
