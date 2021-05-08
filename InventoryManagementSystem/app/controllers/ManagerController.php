@@ -6,27 +6,32 @@ class ManagerController extends \App\core\Controller {
     function index() {
         $employee = new \App\models\Employee();
         $manager = new \App\models\Manager();
+        $printer = new \App\models\Printer();
+        $toner = new \App\models\Toner();
+        $rma = new \App\models\RMA();
 
         $employee = $employee->getAllEmployees();
         $manager = $manager->getAllManagers();
+        $printer = $printer->getAllPrinter();
+        $toner = $toner->getAllToners();
+        $rma = $rma->getAllRma();
 
-        $this->view('Manager/mainPage', ['managers'=> $manager, 'employees' => $employee]);
+        $this->view('Manager/mainPage', ['managers'=> $manager, 'employees' => $employee, 'printers' => $printer, 'toners' => $toner, 'rmas' => $rma]);
     }
 
     function addEmployee() {
-        if (isset($_POST["action"])) {
-            $employee = new \App\models\Employee();
-            // $employee->user_id = $_SESSION['user_id'];
-            $employee->first_name = $_POST["first_name"];
-            $employee->last_name = $_POST["last_name"];
-            $employee->email = $_POST["email"];
-            $employee->phone_No = $_POST["phone"];
+        // if (isset($_POST["action"])) {
+        //     $employee = new \App\models\Employee();
+        //     $employee->first_name = $_POST["first_name"];
+        //     $employee->last_name = $_POST["last_name"];
+        //     $employee->email = $_POST["email"];
+        //     $employee->phone_No = $_POST["phone"];
 
-            $employee->insert();
-            header("location:" . BASE . "/Manager/index/");
-        } else {
-            $this->view('Manager/addEmployee');
-        }
+        //     $employee->insert();
+        //     header("location:" . BASE . "/Manager/index/");
+        // } else {
+            $this->view('Default/register');
+        // }
     }
 
     function addUser() {
@@ -53,8 +58,13 @@ class ManagerController extends \App\core\Controller {
     function demote($manager_id) {
             $employee = new \App\models\Employee();
             $manager = new \App\models\Manager();
+            $user = new \App\models\User();
 
+            $user = $user->find($user_id);
             $manager = $manager->find($manager_id);
+
+            $user->user_role = "manager";
+            $user->update;
 
             $employee->user_id = $manager->user_id;
             $employee->first_name = $manager->first_name;

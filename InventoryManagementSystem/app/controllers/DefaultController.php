@@ -26,7 +26,7 @@ class DefaultController extends \App\core\Controller {
                 $user = new \App\models\User();
                 $user->username = $_POST['username'];
                 $user->password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $user->user_role = $_POST['user_role'];
+                $user->user_role = "employee";
 
                 $result = $user->insert(); //handle the true/false as needed here...
                 if ($result == false) {
