@@ -2,60 +2,34 @@ body {
 	background-color: lightgrey; 
 }
 
-.language {
-	float: right;
-	color: white;
-    text-align: center;
-    padding: 14px 16px;
-	text-decoration: none;
-	font-size: 17px;
-	cursor: pointer;
-}
-
-.w3-teal a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
 .logout {
-	float: right;
-	color: white;
-    text-align: center;
-    padding: 14px 17px;
-	text-decoration: none;
-	font-size: 17px;
-	cursor: pointer;
-}
-
-.search {
-	float: none;
 	position: absolute;
-  	top: 0px;
-  	left: 52px;
-	color: black;
-    text-align: center;
-    padding: 14px 17px;
+	top: 19px;
+	left: 1428px;
+	font-size: 25px;
 	text-decoration: none;
-	font-size: 15px;
+	color: black;
+	cursor: pointer;
+	font-weight: 900;
 }
 
-.button {
-	float: none;
+.dash1 {
+	position: absolute;
+	top: -2px;
+	left: 1410px;
+}
+
+.language {
 	position: absolute;
 	top: 0px;
-	left: 260px;
-	color: white;
-    text-align: center;
-    padding: 14px 17px;
-	text-decoration: none;
-	font-size: 17px;
+	left: 1330px;
 	cursor: pointer;
 }
 
 /*The center window */
 .window {
 	position: absolute; /*Positioning the center window*/
-	top: 80px; /*Positioning the center window*/
+	top: 52px; /*Positioning the center window*/
 	left: 260px; /*Positioning the center window*/
 	width: 1000px; /*window dimensions*/ 
 	height: 640px;  /*window dimensions*/
@@ -140,11 +114,23 @@ body {
 	text-decoration: none; /*Removing text decoration*/ 
 }
 
-.button2 {
+.text2 {
+	position: absolute; top:50px; left: 5px; /*Positioning the subtitle*/
+	color: black; /*Setting the subtitle's color*/
+	font-size: 150%; /*Changing the font size of the subtitle*/
+	text-decoration: none; /*Removing text decoration*/ 
+	background-color:#FFFF00;
+}
+
+.back {
 	position: absolute;
-	top: 62px;
-	left: 6px;
-	font-size: 15px;
-	background-color: lightblue;
+	top: 650px;
+	left: 20px;
 	cursor: pointer;
+}
+
+.info {
+	position: absolute;
+	top: 690px;
+	left: 260px;
 }
