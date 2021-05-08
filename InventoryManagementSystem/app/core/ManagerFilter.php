@@ -9,7 +9,7 @@ class ManagerFilter {
     function execute() {
         
         if ($_SESSION['user_role'] != 'Manager') {
-            header('location:' . BASE . '/Employee/index');
+            header('location:' . BASE . '/Manager/index');
         }
     }
 
