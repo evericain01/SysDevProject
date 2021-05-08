@@ -36,9 +36,9 @@ class Toner extends \App\core\Model {
     }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO toner(toner_id, toner_model, toner_brand, quantity, rma_status) 
-        VALUES (:toner_id, :toner_model, :toner_brand, :quantity, :rma_status)");
-        $stmt->execute(['toner_id' => $this->toner_id, 'toner_model' =>
+        $stmt = self::$connection->prepare("INSERT INTO toner(toner_model, toner_brand, quantity, rma_status) 
+        VALUES (:toner_model, :toner_brand, :quantity, :rma_status)");
+        $stmt->execute(['toner_model' =>
             $this->toner_model, 'toner_brand' => $this->toner_brand, 'quantity' => $this->quantity,
             'rma_status' => $this->rma_status]);
     }

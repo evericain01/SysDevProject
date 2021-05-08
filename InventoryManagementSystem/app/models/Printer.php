@@ -36,9 +36,9 @@ class Printer extends \App\core\Model {
     }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO printer(printer_id, printer_model, printer_brand, quantity, rma_status) 
-        VALUES (:printer_id, :printer_model, :printer_brand, :quantity, :rma_status)");
-        $stmt->execute(['printer_id' => $this->printer_id, 'printer_model' =>
+        $stmt = self::$connection->prepare("INSERT INTO printer(printer_model, printer_brand, quantity, rma_status) 
+        VALUES (:printer_model, :printer_brand, :quantity, :rma_status)");
+        $stmt->execute(['printer_model' =>
             $this->printer_model, 'printer_brand' => $this->printer_brand, 'quantity' => $this->quantity,
             'rma_status' => $this->rma_status]);
     }

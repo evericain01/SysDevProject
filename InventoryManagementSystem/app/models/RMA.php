@@ -27,10 +27,9 @@ class RMA extends \App\core\Model {
     }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO rma(rma_id, printer_id, toner_id, date, rma_reason) 
-        VALUES (:rma_id, :printer_id, :toner_id, :date, :rma_reason)");
-        $stmt->execute(['rma_id' => $this->rma_id, 'printer_id' =>
-            $this->printer_id, 'toner_id' => $this->toner_id, 'date' => $this->date, 'rma_reason' => $this->rma_reason]);
+        $stmt = self::$connection->prepare("INSERT INTO rma(printer_id, toner_id, date, rma_reason) 
+        VALUES (:printer_id, :toner_id, :date, :rma_reason)");
+        $stmt->execute(['printer_id' =>$this->printer_id, 'toner_id' => $this->toner_id, 'date' => $this->date, 'rma_reason' => $this->rma_reason]);
     }
 
     public function delete() {
