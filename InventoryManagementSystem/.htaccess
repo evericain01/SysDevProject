@@ -2,7 +2,7 @@ Options -MultiViews
 
 RewriteEngine On
 
-RewriteBase /FinalProject/InventoryManagementSystem
+RewriteBase /SysDevProject/InventoryManagementSystem
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

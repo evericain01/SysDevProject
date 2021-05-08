@@ -8,7 +8,7 @@ class Model {
 
     public function __construct() {
         $host = "localhost";
-        $DBName = "";
+        $DBName = "accsys_data_db";
         $username = "root";
         $password = "";
 
