@@ -3,6 +3,8 @@
 namespace App\controllers;
 
 class ManagerController extends \App\core\Controller {
+    
+    #[\App\core\ManagerFilter]
     function index() {
         $employee = new \App\models\Employee();
         $manager = new \App\models\Manager();
