@@ -3,6 +3,18 @@
 namespace App\controllers;
 
 class RMAController extends \App\core\Controller {
+    function index() {
+        $printer = new \App\models\Printer();
+        $toner = new \App\models\Toner();
+        $rma = new \App\models\RMA();
+
+        $printer = $printer->getAllPrinter();
+        $toner = $toner->getAllToners();
+        $rma = $rma->getAllRma();
+
+        // $this->view('Manager/mainPage', ['printers' => $printer, 'toners' => $toner, 'rmas' => $rma]);
+    }
+
     function rmaToner($toner_id) {
         if (isset($_POST["action"])) {
             $toner = new \App\models\Printer();

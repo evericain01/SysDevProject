@@ -41,6 +41,7 @@ class ManagerController extends \App\core\Controller {
     function promote($employee_id) {
             $employee = new \App\models\Employee();
             $manager = new \App\models\Manager();
+            $user = new \App\models\User();
 
             $employee = $employee->find($employee_id);
 
@@ -49,6 +50,10 @@ class ManagerController extends \App\core\Controller {
             $manager->last_name = $employee->last_name;
             $manager->email = $employee->email;
             $manager->phone_No = $employee->phone_No;
+
+            $_SESSION['user_role'] = "manager";
+            $user->user_role = "manager";
+            $user->update;
 
             $manager->insert();
             $employee->delete();
@@ -63,7 +68,8 @@ class ManagerController extends \App\core\Controller {
             $user = $user->find($user_id);
             $manager = $manager->find($manager_id);
 
-            $user->user_role = "manager";
+            $_SESSION['user_role'] = "employee";
+            $user->user_role = "employee";
             $user->update;
 
             $employee->user_id = $manager->user_id;
@@ -75,6 +81,43 @@ class ManagerController extends \App\core\Controller {
             $employee->insert();
             $manager->delete();
             header("location:" . BASE . "/Manager/index/");
+    }
+
+    function addTonerRma($toner_id) {
+        if (isset($_POST["action"])) {
+            $rma = new \App\models\RMA();
+
+            $rma->toner_id = $toner_id;
+            $rma->rma_reason = $_POST["rma_reason"];
+
+            // header("location:" . BASE . "/Manager/index/");
+        } else {
+            // $this->view('Default/register');
+        }
+    }
+
+    function addPrinterRma($printer_id) {
+        if (isset($_POST["action"])) {
+            $rma = new \App\models\RMA();
+
+            $rma->toner_id = $printer_id;
+            $rma->rma_reason = $_POST["rma_reason"];
+
+            // header("location:" . BASE . "/Manager/index/");
+        } else {
+            // $this->view('Default/register');
+        }
+    }
+
+    function removeRma($rma_id) {
+        if (isset($_POST["action"])) {
+            $rma = new \App\models\RMA();
+
+            $rma = $rma->find($rma_id);
+            // header("location:" . BASE . "/Manager/index/");
+        } else {
+            // $this->view('Default/register');
+        }
     }
 }
 
