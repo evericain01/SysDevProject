@@ -49,7 +49,7 @@
       <br>
 
       <label class="password2">Re-Type Password:</label>
-      <input class="inputbox6" type="password" name="password2">
+      <input class="inputbox6" type="password" name="password_confirm">
       <br>
 
       <button class="button" type="button" onclick="register.php">Register Account</button>
