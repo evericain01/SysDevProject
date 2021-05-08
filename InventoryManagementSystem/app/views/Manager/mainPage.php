@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Register an employee</title>
+        <title>All users</title>
     </head>
     <body>
     <?php
