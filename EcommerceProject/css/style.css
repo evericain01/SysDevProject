@@ -1,0 +1,73 @@
+body {
+    text-align: center;
+    background-color: #BFBFBF;
+font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+}
+
+.row {margin: 0 -5px;}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 2px;
+    text-align: center;
+    background-color: #f1f1f1;
+    border-color: black;
+}
+
+.card:hover {
+    background-color: #92f59f;
+}
+
+
+u {
+    float:left;
+    font-size: 15px;
+}
+
+.allOrders {
+    text-align: left;
+}
+
+.invoices {
+    text-align: left;
+}
+
+.search {
+    text-align: left;
+}
+
+textarea {
+    width: 238px;
+    height: 80px;
+}
+
+.review {
+    text-align: left;
+    font-size: 15px;
+}
+
+.homePageTitle {
+    font-size: 30px;
+}
+
+.language {
+    font-size: 15px;
+}
+
+.homePageLink {
+    text-align: left;
+}
+
