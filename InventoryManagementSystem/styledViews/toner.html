@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toner Stock</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="toner.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type="text/javascript" src="home.js"></script>
+<body>
+  <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+    <button class="w3-bar-item w3-button w3-large" onclick="w3_close()">Close &times;</button>
+    <a href="home.html" class="w3-bar-item w3-button">Home</a>
+    <a href="modify.html" class="w3-bar-item w3-button">Modify Profile</a>
+    <a href="register.html" class="w3-bar-item w3-button">Register an Account</a>
+    <a href="account.html" class="w3-bar-item w3-button">View All Accounts</a>
+    <a href="printer.html" class="w3-bar-item w3-button">View Printer Stock</a>
+  </div>
+
+  <div class="w3-teal">
+    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+    <a href="login.html" class="logout">Log Out</a>
+    <a class="language" onclick="toner.php">EN/FR</a>
+    <input type="text" class="search" placeholder="Click to search...">
+    <a class="button" onclick="toner.php">Go</a>
+  </div>
+  <button class="history" onclick="printer.php">View Stock History</button>
+  <h1 class="add">Add Toner: </h1>
+  <select class="options3" id="level" name="level">
+    <option value="employee">Employee</option>
+    <option value="manager">Manager</option>
+  </select>
+  <h1 class="sort">Sort By: </h1>
+  <select class="options" id="level" name="level">
+    <option value="employee">Employee</option>
+    <option value="manager">Manager</option>
+  </select>
+  <h1 class="filter">Filter By: </h1>
+  <select class="options2" id="level" name="level">
+    <option value="employee">Employee</option>
+    <option value="manager">Manager</option>
+  </select>
+   <center>
+    <div class="window">
+    <h1>Toner Stock</h1>
+
+    <div class="paragraph1">
+      <h1 class="subtitle">1. HP 63 Black Original Ink Cartridge (F6U62AN) (Quantity: 1)</h1>
+      <button class="button2" onclick="printer.php">Edit</button>
+    </div>
+
+    <div class="paragraph2">
+      <h1 class="subtitle">1. HP 63 Black Original Ink Cartridge (F6U62AN) (Quantity: 1)</h1>
+      <button class="button2" onclick="printer.php">Edit</button>
+    </div>
+
+    <div class="paragraph3">
+      <h1 class="subtitle">1. HP 63 Black Original Ink Cartridge (F6U62AN) (Quantity: 1)</h1>
+      <button class="button2" onclick="printer.php">Edit</button>
+    </div>
+
+    <div class="paragraph4">
+      <h1 class="subtitle">1. HP 63 Black Original Ink Cartridge (F6U62AN) (Quantity: 1)</h1>
+      <button class="button2" onclick="printer.php">Edit</button>
+    </div>
+
+    <div class="paragraph5">
+      <h1 class="subtitle">1. HP 63 Black Original Ink Cartridge (F6U62AN) (Quantity: 1)</h1>
+      <button class="button2" onclick="printer.php">Edit</button>
+    </div>
+
+    <div class="paragraph6">
+      <h1 class="subtitle">1. HP 63 Black Original Ink Cartridge (F6U62AN) (Quantity: 1)</h1>
+      <button class="button2" onclick="printer.php">Edit</button>
+    </div>
+  </div>
+  </center>
+</body>
+</html>
