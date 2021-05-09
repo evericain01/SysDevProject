@@ -35,6 +35,30 @@ class Printer extends \App\core\Model {
         return $stmt->fetchAll();
     }
 
+    public function printerStockAscending() {
+        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY stock");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+        return $stmt->fetchAll();
+    }
+
+    public function printerStockDescending() {
+        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY stock DESC");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+        return $stmt->fetchAll();
+    }
+
+    public function printerNameAscending() {
+        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY printer_model");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+        return $stmt->fetchAll();
+    }
+
+    public function printerNameDescending() {
+        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY printer_model DESC");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+        return $stmt->fetchAll();
+    }
+
     public function insert() {
         $stmt = self::$connection->prepare("INSERT INTO printer(printer_model, printer_brand, quantity, rma_status) 
         VALUES (:printer_model, :printer_brand, :quantity, :rma_status)");

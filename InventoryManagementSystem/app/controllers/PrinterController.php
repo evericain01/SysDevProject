@@ -5,7 +5,28 @@ namespace App\controllers;
 class PrinterController extends \App\core\Controller {
 
     function index() {
-        
+        if (isset($_POST["action"])) {
+            $printer = new \App\models\Printer();
+
+            if($_POST["sort"] == "name descending") {
+                $printer = $printer->printerNameDescending();
+            }
+            elseif($_POST["sort"] == "stock ascending") {
+                $printer = $printer->printerStockAscending()
+            }
+            elseif($_POST["sort"] == "stock descending") {
+                $printer = $printer->printerStockDescending()
+            }
+            elseif($_POST["sort"] == "name ascending") {
+                $printer = $printer->printerNameAscending()
+            }
+            else {
+                $printer = $printer->getAllPrinters();
+            }
+            // header("location:" . BASE . "/Printer/index");
+        } else {
+            // $this->view('Printer/viewPrinterStock');
+        }
     }
 
     function add() {

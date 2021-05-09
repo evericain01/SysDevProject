@@ -54,4 +54,28 @@ class Toner extends \App\core\Model {
             'toner_brand' => $this->toner_brand, 'quantity' => $this->quantity,'rma_status' => $this->rma_status]);
     }
 
+    public function tonerStockAscending() {
+        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY stock");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+        return $stmt->fetchAll();
+    }
+
+    public function tonerStockDescending() {
+        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY stock DESC");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+        return $stmt->fetchAll();
+    }
+
+    public function tonerNameAscending() {
+        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY toner_model");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+        return $stmt->fetchAll();
+    }
+
+    public function tonerNameDescending() {
+        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY toner_model DESC");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+        return $stmt->fetchAll();
+    }
+
 }
