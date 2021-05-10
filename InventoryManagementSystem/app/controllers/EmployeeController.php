@@ -32,6 +32,16 @@ class EmployeeController extends \App\core\Controller {
             $this->view('Employee/modifyEmployeeProfile', $employee);
         }
     }
+
+    function viewAllUsers() {
+        $employee = new \App\models\Employee();
+        $manager = new \App\models\Manager();
+
+        $manager = $manager->getAllManagers();
+        $employee = $employee->getAllEmployees();
+
+        $this->view('Employee/listAllUsersForEmployee', ['managers' => $manager, 'employees' => $employee]);
+    }
 }
 
 ?>

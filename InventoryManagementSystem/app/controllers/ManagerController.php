@@ -37,6 +37,22 @@ class ManagerController extends \App\core\Controller {
         $this->view('Default/register');
     }
 
+    function deleteEmployee($employee_id) {
+        $employee = new \App\models\Employee();
+        $employee = $employee->find($employee_id);
+        $employee->delete();
+        
+        header("location:" . BASE . "/Manager/viewAllUsers");
+    }
+
+    function deleteManager($manager_id) {
+        $manager = new \App\models\Manager();
+        $manager = $manager->find($manager_id)
+        $manager->delete();
+        
+        header("location:" . BASE . "/Manager/viewAllUsers");
+    }
+
     function addUser() {
         $this->view('Default/register');
     }
@@ -128,6 +144,15 @@ class ManagerController extends \App\core\Controller {
         }
     }
 
+    function viewAllUsers() {
+        $employee = new \App\models\Employee();
+        $manager = new \App\models\Manager();
+
+        $manager = $manager->getAllManagers();
+        $employee = $employee->getAllEmployees();
+
+        $this->view('Manager/listAllUsersForManager', ['managers' => $manager, 'employees' => $employee]);
+    }
 }
 
 ?>
