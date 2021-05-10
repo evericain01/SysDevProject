@@ -15,7 +15,7 @@ class Manager extends \App\core\Model {
         parent::__construct();
     }
 
-    public function find($buyer_id) {
+    public function find($manager_id) {
         $stmt = self::$connection->prepare("SELECT * FROM manager WHERE manager_id = :manager_id");
         $stmt->execute(['manager_id' => $manager_id]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Manager");
@@ -43,7 +43,7 @@ class Manager extends \App\core\Model {
     }
 
     public function delete() {
-        $stmt = self::$connection->prepare("DELETE from manager WHERE manager_id=:manager_id");
+        $stmt = self::$connection->prepare("DELETE FROM manager WHERE manager_id=:manager_id");
         $stmt->execute(['manager_id' => $this->manager_id]);
     }
 

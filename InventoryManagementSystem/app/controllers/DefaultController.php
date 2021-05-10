@@ -5,7 +5,7 @@ namespace App\controllers;
 class DefaultController extends \App\core\Controller {
 
     function index() {
-        $this->view('Login/login');
+        header('location:' . BASE . '/Login/login');
     }
 
     function register() {

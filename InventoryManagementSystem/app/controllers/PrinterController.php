@@ -29,7 +29,9 @@ class PrinterController extends \App\core\Controller {
 
             header("location:" . BASE . "/Printer/index");
         } else {
-            $this->view('Printer/viewPrinterStock');
+            $printer = new \App\models\Printer();
+            $printer = $printer->getAllPrinters();
+            $this->view('Printer/viewPrinterStock', $printer);
         }
     }
 

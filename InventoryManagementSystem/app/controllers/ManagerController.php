@@ -9,8 +9,28 @@ class ManagerController extends \App\core\Controller {
         $manager = new \App\models\Manager();
 
         $manager = $manager->findUserId($_SESSION['user_id']);
-
         $this->view('Manager/managerMainPage', $manager);
+    }
+
+    function edit($manager_id) {
+        if (isset($_POST["action"])) {
+            $manager = new \App\models\Manager();
+            $manager = $manager->find($manager_id);
+            
+            $manager->first_name = $_POST['first_name'];
+            $manager->last_name = $_POST['last_name'];
+            $manager->email = $_POST['email'];
+            $manager->phone_No = $_POST['phone_No'];
+
+            $manager->update();
+
+            header("location:" . BASE . "/Manager/index");
+        } else {
+            $manager = new \App\models\Manager();
+            $manager = $manager->find($manager_id);
+            
+            $this->view('Manager/modifyManagerProfile', $manager);
+        }
     }
 
     function addEmployee() {
