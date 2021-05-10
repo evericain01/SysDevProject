@@ -4,19 +4,6 @@
 </head>
 <body>
 <?php
-
-public $rma_id;
-public $printer_id; //Can be null
-public $toner_id; //Can be null
-public $date;
-public $rma_reason;
-
-public $printer_id;
-public $printer_model;
-public $printer_brand;
-public $quantity;
-public $rma_status; 
-
     foreach ($data['rma'] as $rma) {
         if($rma->printer_id != null) {
             foreach($data['printers' as $printer]) {
