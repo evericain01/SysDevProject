@@ -3,6 +3,16 @@
 namespace App\controllers;
 
 class RMAController extends \App\core\Controller {
+    function index() {
+        $rma = new \App\models\RMA();
+        $printer = new \App\models\Printer();
+        $toner = new \App\models\Toner();
+
+        $toner = $toner->getAllToners();
+        $printer = $printer->getAllPrinters();
+
+        $this->view('RMA/viewRma', ['rma' => $rma, 'toners' => $toners, 'printers' => $printer]);
+    }
 
     function rmaPrinter($printer_id) {
         if (isset($_POST["action"])) {
@@ -36,6 +46,12 @@ class RMAController extends \App\core\Controller {
         }
     }
 
+    function deleteToner($rma_id) {
+        $rma = new \App\models\RMA();
+        $rma = $rma->find($rma_id);
+        $rma->delete();
+        header("location:" . BASE . "/RMA/index");
+    }
 }
 
 ?>
