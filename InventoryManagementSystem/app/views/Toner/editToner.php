@@ -1,8 +1,27 @@
-<?php
+<html>
+<head>
+    <title>Printer</title>
+</head>
+<body>
+    <?php
+        echo "<label>Model: ". $data['toner']->toner_model ."</label><br><br>";
+        echo "<label>Brand: ". $data['toner']->toner_brand ."</label><br><br>";
+    ?>
+    <form method="post" action="">
+        <label><Quantity:<br><input type="number" step="1" min="0" name="quantity" 
+                                             value="<?= $data['toner']->quantity ?>"/></label><br /><br>
+        <input type="submit" name="action" class="btn btn-info" value="Submit changes" />
+    </form>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    <?php
+        echo "Broken?";
+    ?>
+
+    <form method="post" action="">
+        <label><Quantity:<br><input type="number" step="1" min="0" name="quantity_broken" /></label><br /><br>
+        <label><Reason:<br><input type="textarea" name="reason" /></label><br /><br>
+        <input type="submit" name="action" class="btn btn-info" value="Add rma" />
+    </form>
+</body>
+</html>
 
