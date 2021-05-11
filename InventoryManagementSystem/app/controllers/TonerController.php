@@ -6,30 +6,86 @@ class TonerController extends \App\core\Controller {
 
     function index() {
         if (isset($_POST["action"])) {
+
             $keyword = $_POST["keyword"];
             $toner = new \App\models\Toner();
-            $toner = $toner->searchToner($keyword);
 
-            if ($keyword == "") {
-                echo "INVALID: no toners found" . "<br><br>";
-                echo "<a href='" . BASE . "/Toner/index'>&#8592 Go back</a>";
-            }
-
-            if ($_POST["sort"] == "name descending") {
-                $toner = $toner->tonerNameDescending();
-            } else if ($_POST["sort"] == "stock ascending") {
-                $toner = $toner->tonerStockAscending();
-            } else if ($_POST["sort"] == "stock descending") {
-                $toner = $toner->tonerStockDescending();
-            } else if ($_POST["sort"] == "name ascending") {
-                $toner = $toner->tonerNameAscending();
+            if (isset($_POST['filter'])) {
+                if($_POST['filter'] == 'model'){
+                    if(isset($_POST['sort'])){
+                        if($_POST['sort'] == 'nameAsc'){
+                            $toner = $toner->searchTonerModelAsc($keyword);
+                        } elseif ($_POST['sort'] == 'nameDesc') {
+                            $toner = $toner->searchTonerModelDesc($keyword);
+                        } elseif ($_POST['sort'] == 'stockAsc') {
+                            $toner = $toner->searchTonerModelStockAsc($keyword);
+                        } elseif ($_POST['sort'] == 'stockDesc') {
+                            $toner = $toner->searchTonerModelStockDesc($keyword);
+                        } else {
+                            $toner = $toner->searchTonerModel($keyword);
+                        }
+                    } else {
+                        $toner = $toner->searchTonerModel($keyword);
+                    }                    
+                } elseif ($_POST['filter'] == 'brand') {
+                    if(isset($_POST['sort'])){
+                        if($_POST['sort'] == 'nameAsc'){
+                            $toner = $toner->searchTonerBrandAsc($keyword);
+                        } elseif ($_POST['sort'] == 'nameDesc') {
+                            $toner = $toner->searchTonerBrandDesc($keyword);
+                        } elseif ($_POST['sort'] == 'stockAsc') {
+                            $toner = $toner->searchTonerBrandStockAsc($keyword);
+                        } elseif ($_POST['sort'] == 'stockDesc') {
+                            $toner = $toner->searchTonerBrandStockDesc($keyword);
+                        } else {
+                            $toner = $toner->searchTonerBrand($keyword);
+                        }
+                    } else {
+                        $toner = $toner->searchTonerBrand($keyword);
+                    }
+                } elseif ($_POST['filter'] == 'rma'){
+                    if(isset($_POST['sort'])){
+                        if($_POST['sort'] == 'nameAsc'){
+                            $toner = $toner->searchAllRmaSortName($keyword);
+                        } elseif ($_POST['sort'] == 'nameDesc') {
+                            $toner = $toner->searchAllRmaSortNameDesc($keyword);
+                        } elseif ($_POST['sort'] == 'stockAsc') {
+                            $toner = $toner->searchAllRmaSortStock($keyword);
+                        } elseif ($_POST['sort'] == 'stockDesc') {
+                            $toner = $toner->searchAllRmaSortStockDesc($keyword);
+                        } else {
+                            $toner = $toner->searchAllRma($keyword);
+                        }
+                    } else {
+                        $toner = $toner->searchAllRma($keyword);
+                    }
+                } else {
+                    $toner = $toner->getAllToners();
+                }
             } else {
-                $toner = $toner->getAllToners();
+                if(isset($_POST['sort'])){
+                    if($_POST['sort'] == 'nameAsc'){
+                        $toner = $toner->getAllTonersSortName();
+                    } elseif ($_POST['sort'] == 'nameDesc') {
+                        $toner = $toner->getAllTonersSortNameDesc();
+                    } elseif ($_POST['sort'] == 'stockAsc') {
+                        $toner = $toner->getAllTonersSortStock();
+                    } elseif ($_POST['sort'] == 'stockDesc') {
+                        $toner = $toner->getAllTonersSortStockDesc();
+                    } else {
+                        $toner = $toner->searchTonerModel($keyword);
+                    }
+                } else {
+                    $toner = $toner->getAllToners();
+                }       
             }
 
-            header("location:" . BASE . "/Toner/index");
+            $this->view('Toner/viewTonerStock', $toner);
+
         } else {
-            $this->view('Toner/viewTonerStock');
+            $toner = new \App\models\Toner();
+            $toner = $toner->getAllToners();
+            $this->view('Toner/viewTonerStock', $toner);
         }
     }
 
@@ -37,8 +93,8 @@ class TonerController extends \App\core\Controller {
         if (isset($_POST["action"])) {
             $toner = new \App\models\Toner();
 
-            $toner->printer_model = $_POST["printer_model"];
-            $toner->printer_brand = $_POST["printer_brand"];
+            $toner->toner_model = $_POST["toner_model"];
+            $toner->toner_brand = $_POST["toner_brand"];
             $toner->quantity = 1;
 
             $toner->rma_status = 'unchecked';
@@ -52,7 +108,7 @@ class TonerController extends \App\core\Controller {
 
     function update($toner_id) {
         if (isset($_POST["action"])) {
-            $toner = new \App\models\Printer();
+            $toner = new \App\tonerodels\Toner();
             $toner = $toner->find($toner_id);
 
             $toner->quantity = $_POST["quantity"];
@@ -64,7 +120,7 @@ class TonerController extends \App\core\Controller {
             $toner->update();
             header("location:" . BASE . "/Toner/index");
         } else {
-            $toner = new \App\models\Printer();
+            $toner = new \App\models\Toner();
             $toner = $toner->find($toner_id);
             $this->view('Toner/editToner', $toner_id);
         }

@@ -6,7 +6,6 @@ class PrinterController extends \App\core\Controller {
 
     function index() {
         if (isset($_POST["action"])) {
-            var_dump($_POST);
 
             $keyword = $_POST["keyword"];
             $printer = new \App\models\Printer();
