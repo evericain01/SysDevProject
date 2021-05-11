@@ -6,28 +6,83 @@ class PrinterController extends \App\core\Controller {
 
     function index() {
         if (isset($_POST["action"])) {
+            var_dump($_POST);
+
             $keyword = $_POST["keyword"];
             $printer = new \App\models\Printer();
-            $printer = $printer->searchPrinter($keyword);
 
-            if ($keyword == "") {
-                echo "INVALID: no printers found" . "<br><br>";
-                echo "<a href='" . BASE . "/Printer/index'>&#8592 Go back</a>";
-            }
-
-            if ($_POST["sort"] == "name descending") {
-                $printer = $printer->printerNameDescending();
-            } else if ($_POST["sort"] == "stock ascending") {
-                $printer = $printer->printerStockAscending();
-            } else if ($_POST["sort"] == "stock descending") {
-                $printer = $printer->printerStockDescending();
-            } else if ($_POST["sort"] == "name ascending") {
-                $printer = $printer->printerNameAscending();
+            if (isset($_POST['filter'])) {
+                if($_POST['filter'] == 'model'){
+                    if(isset($_POST['sort'])){
+                        if($_POST['sort'] == 'nameAsc'){
+                            $printer = $printer->searchPrinterModelAsc($keyword);
+                        } elseif ($_POST['sort'] == 'nameDesc') {
+                            $printer = $printer->searchPrinterModelDesc($keyword);
+                        } elseif ($_POST['sort'] == 'stockAsc') {
+                            $printer = $printer->searchPrinterModelStockAsc($keyword);
+                        } elseif ($_POST['sort'] == 'stockDesc') {
+                            $printer = $printer->searchPrinterModelStockDesc($keyword);
+                        } else {
+                            $printer = $printer->searchPrinterModel($keyword);
+                        }
+                    } else {
+                        $printer = $printer->searchPrinterModel($keyword);
+                    }                    
+                } elseif ($_POST['filter'] == 'brand') {
+                    if(isset($_POST['sort'])){
+                        if($_POST['sort'] == 'nameAsc'){
+                            $printer = $printer->searchPrinterBrandAsc($keyword);
+                        } elseif ($_POST['sort'] == 'nameDesc') {
+                            $printer = $printer->searchPrinterBrandDesc($keyword);
+                        } elseif ($_POST['sort'] == 'stockAsc') {
+                            $printer = $printer->searchPrinterBrandStockAsc($keyword);
+                        } elseif ($_POST['sort'] == 'stockDesc') {
+                            $printer = $printer->searchPrinterBrandStockDesc($keyword);
+                        } else {
+                            $printer = $printer->searchPrinterBrand($keyword);
+                        }
+                    } else {
+                        $printer = $printer->searchPrinterBrand($keyword);
+                    }
+                } elseif ($_POST['filter'] == 'rma'){
+                    if(isset($_POST['sort'])){
+                        if($_POST['sort'] == 'nameAsc'){
+                            $printer = $printer->searchAllRmaSortName($keyword);
+                        } elseif ($_POST['sort'] == 'nameDesc') {
+                            $printer = $printer->searchAllRmaSortNameDesc($keyword);
+                        } elseif ($_POST['sort'] == 'stockAsc') {
+                            $printer = $printer->searchAllRmaSortStock($keyword);
+                        } elseif ($_POST['sort'] == 'stockDesc') {
+                            $printer = $printer->searchAllRmaSortStockDesc($keyword);
+                        } else {
+                            $printer = $printer->searchAllRma($keyword);
+                        }
+                    } else {
+                        $printer = $printer->searchAllRma($keyword);
+                    }
+                } else {
+                    $printer = $printer->getAllPrinters();
+                }
             } else {
-                $printer = $printer->getAllPrinters();
+                if(isset($_POST['sort'])){
+                    if($_POST['sort'] == 'nameAsc'){
+                        $printer = $printer->getAllPrintersSortName();
+                    } elseif ($_POST['sort'] == 'nameDesc') {
+                        $printer = $printer->getAllPrintersSortNameDesc();
+                    } elseif ($_POST['sort'] == 'stockAsc') {
+                        $printer = $printer->getAllPrintersSortStock();
+                    } elseif ($_POST['sort'] == 'stockDesc') {
+                        $printer = $printer->getAllPrintersSortStockDesc();
+                    } else {
+                        $printer = $printer->searchPrinterModel($keyword);
+                    }
+                } else {
+                    $printer = $printer->getAllPrinters();
+                }       
             }
 
-            header("location:" . BASE . "/Printer/index");
+            $this->view('Printer/viewPrinterStock', $printer);
+
         } else {
             $printer = new \App\models\Printer();
             $printer = $printer->getAllPrinters();
@@ -68,7 +123,7 @@ class PrinterController extends \App\core\Controller {
         } else {
             $printer = new \App\models\Printer();
             $printer = $printer->find($printer_id);
-            $this->view('Printer/editPrinter', $printer_id);
+            $this->view('Printer/editPrinter', $printer);
         }
     }
 

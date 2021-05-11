@@ -1,11 +1,11 @@
 <html>
 <head>
-    <title>Toner</title>
+    <title>Printer</title>
 </head>
 <body>
     <?php
-        echo "<label>Model: ". $data['printer']->printer_model ."</label><br><br>";
-        echo "<label>Brand: ". $data['printer']->printer_brand ."</label><br><br>";
+        echo "<label>Model:$data->printer_model</label><br><br>";
+        echo "<label>Brand:$data->printer_brand</label><br><br>";
     ?>
     <form method="post" action="">
         <label><Quantity:<br><input type="number" step="1" min="0" name="quantity" 
