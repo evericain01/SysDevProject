@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2021 at 03:44 AM
+-- Generation Time: May 11, 2021 at 08:01 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `accsys_data_db`
 --
-CREATE DATABASE IF NOT EXISTS `accsys_data_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `accsys_data_db`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,6 @@ USE `accsys_data_db`;
 -- Table structure for table `employee`
 --
 
-DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `employee_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -39,13 +36,19 @@ CREATE TABLE `employee` (
   `phone_No` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`employee_id`, `user_id`, `first_name`, `last_name`, `email`, `phone_No`) VALUES
+(5, 11, 'Ebrahim', 'Vericain', 'evericain01@hotmail.com', '4385303188');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `manager`
 --
 
-DROP TABLE IF EXISTS `manager`;
 CREATE TABLE `manager` (
   `manager_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -55,13 +58,19 @@ CREATE TABLE `manager` (
   `phone_No` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `manager`
+--
+
+INSERT INTO `manager` (`manager_id`, `user_id`, `first_name`, `last_name`, `email`, `phone_No`) VALUES
+(1, 1, 'Patrick', 'Vericain', 'primemail@gmail.com', '514-823-8889');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `printer`
 --
 
-DROP TABLE IF EXISTS `printer`;
 CREATE TABLE `printer` (
   `printer_id` int(11) NOT NULL,
   `printer_model` varchar(60) NOT NULL,
@@ -76,7 +85,6 @@ CREATE TABLE `printer` (
 -- Table structure for table `rma`
 --
 
-DROP TABLE IF EXISTS `rma`;
 CREATE TABLE `rma` (
   `rma_id` int(11) NOT NULL,
   `printer_id` int(11) NOT NULL,
@@ -91,7 +99,6 @@ CREATE TABLE `rma` (
 -- Table structure for table `toner`
 --
 
-DROP TABLE IF EXISTS `toner`;
 CREATE TABLE `toner` (
   `toner_id` int(11) NOT NULL,
   `toner_model` varchar(60) NOT NULL,
@@ -106,14 +113,20 @@ CREATE TABLE `toner` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `username` varchar(64) NOT NULL,
   `password_hash` varchar(225) NOT NULL,
-  `secret_key` varchar(16) DEFAULT NULL,
   `user_role` enum('Manager','Employee') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password_hash`, `user_role`) VALUES
+(1, 'manager101', '$2y$10$gxgjx4JPly7e/wzf/Lmjoe/is7wDfNtFmhPXNLzqWYT8Xpg8/96Im', 'Manager'),
+(11, 'employee101', '$2y$10$Xzgtk/oKc6qNRK8AaX2LFOyoJ6nqKp04QDGGgyElUXVxuSzMpWLWm', 'Employee');
 
 --
 -- Indexes for dumped tables
@@ -167,13 +180,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `manager`
 --
 ALTER TABLE `manager`
-  MODIFY `manager_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `manager_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `printer`
@@ -197,7 +210,7 @@ ALTER TABLE `toner`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

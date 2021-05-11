@@ -1,5 +1,7 @@
 <html>
     <head>
+        <link rel="stylesheet" href="<?= BASE ?>/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?= BASE ?>/css/style.css" type="text/css">
         <title>Printer Stock</title>
     </head>
     <body>
