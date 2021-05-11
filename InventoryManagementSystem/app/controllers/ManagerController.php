@@ -3,34 +3,23 @@
 namespace App\controllers;
 
 class ManagerController extends \App\core\Controller {
-    
     #[\App\core\ManagerFilter]
+
     function index() {
         $manager = new \App\models\Manager();
-
         $manager = $manager->findUserId($_SESSION['user_id']);
+
         $this->view('Manager/managerMainPage', $manager);
     }
 
-    function edit($manager_id) {
-        if (isset($_POST["action"])) {
-            $manager = new \App\models\Manager();
-            $manager = $manager->find($manager_id);
-            
-            $manager->first_name = $_POST['first_name'];
-            $manager->last_name = $_POST['last_name'];
-            $manager->email = $_POST['email'];
-            $manager->phone_No = $_POST['phone_No'];
+    function viewAllUsers() {
+        $employee = new \App\models\Employee();
+        $manager = new \App\models\Manager();
 
-            $manager->update();
+        $employee = $employee->getAllEmployees();
+        $manager = $manager->getAllManagers();
 
-            header("location:" . BASE . "/Manager/index");
-        } else {
-            $manager = new \App\models\Manager();
-            $manager = $manager->find($manager_id);
-            
-            $this->view('Manager/modifyManagerProfile', $manager);
-        }
+        $this->view('Manager/listAllUsersForManager', ['managers' => $manager, 'employees' => $employee]);
     }
 
     function addEmployee() {
@@ -41,7 +30,7 @@ class ManagerController extends \App\core\Controller {
         $employee = new \App\models\Employee();
         $employee = $employee->find($employee_id);
         $employee->delete();
-        
+
         header("location:" . BASE . "/Manager/viewAllUsers");
     }
 
@@ -49,7 +38,7 @@ class ManagerController extends \App\core\Controller {
         $manager = new \App\models\Manager();
         $manager = $manager->find($manager_id);
         $manager->delete();
-        
+
         header("location:" . BASE . "/Manager/viewAllUsers");
     }
 
@@ -144,15 +133,6 @@ class ManagerController extends \App\core\Controller {
         }
     }
 
-    function viewAllUsers() {
-        $employee = new \App\models\Employee();
-        $manager = new \App\models\Manager();
-
-        $manager = $manager->getAllManagers();
-        $employee = $employee->getAllEmployees();
-
-        $this->view('Manager/listAllUsersForManager', ['managers' => $manager, 'employees' => $employee]);
-    }
 }
 
 ?>

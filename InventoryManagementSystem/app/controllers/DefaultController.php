@@ -43,63 +43,105 @@ class DefaultController extends \App\core\Controller {
         }
     }
 
-    function editManagerPassword() {
+    function editManagerAccount($manager_id) {
         $user = new \App\models\User();
         $user = $user->find($_SESSION['username']);
 
         if (isset($_POST["action"])) {
+
+
+            $manager = new \App\models\Manager();
+            $manager = $manager->find($manager_id);
+
+            $manager->first_name = $_POST['first_name'];
+            $manager->last_name = $_POST['last_name'];
+            $manager->email = $_POST['email'];
+            $manager->phone_No = $_POST['phone_No'];
+
+            $manager->update();
+
+            $user->username = $_POST['username'];
+            $user->update($_SESSION['username']);
+
+
             if ($_POST["oldPassword"] != "") {
                 if (password_verify($_POST['oldPassword'], $user->password_hash)) {
 
                     if ($_POST['newPassword'] == $_POST['reTypePassword']) {
                         $user->password_hash = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                         $user->update($_SESSION['username']);
-                        echo "Password Successfully Changed!<br><br>";
-                        echo "<a href = '" . BASE . "/Manager/index' >&#8592 Go Back to Home Page</a>";
                     } else {
                         echo "Password does not match.<br><br>";
-                        echo "<a href = '" . BASE . "/Default/editManagerPassword' >&#8592 Go Back to Change Password</a>";
+                        $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
+                        return;
                     }
                 } else {
                     echo "Invalid old password.<br><br>";
-                    echo "<a href = '" . BASE . "/Default/editManagerPassword' >&#8592 Go Back to Change Password</a>";
+                    $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
+                    return;
                 }
             } else {
                 echo "Input a new password.<br><br>";
-                echo "<a href = '" . BASE . "/Default/editManagerPassword' >&#8592 Go Back to Change Password</a>";
+                $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
+                return;
             }
+
+            $this->view('Manager/managerMainPage', $manager);
         } else {
-            $this->view('Manager/changeManagerPassword');
+            $manager = new \App\models\Manager();
+            $manager = $manager->find($manager_id);
+            $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
         }
     }
 
-    function editEmployeePassword() {
+    function editEmployeeAccount($employee_id) {
         $user = new \App\models\User();
         $user = $user->find($_SESSION['username']);
 
         if (isset($_POST["action"])) {
+
+
+            $employee = new \App\models\Employee();
+            $employee = $employee->find($employee_id);
+
+            $employee->first_name = $_POST['first_name'];
+            $employee->last_name = $_POST['last_name'];
+            $employee->email = $_POST['email'];
+            $employee->phone_No = $_POST['phone_No'];
+
+            $employee->update();
+
+            $user->username = $_POST['username'];
+            $user->update($_SESSION['username']);
+
+
             if ($_POST["oldPassword"] != "") {
                 if (password_verify($_POST['oldPassword'], $user->password_hash)) {
 
                     if ($_POST['newPassword'] == $_POST['reTypePassword']) {
                         $user->password_hash = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                         $user->update($_SESSION['username']);
-                        echo "Password Successfully Changed!<br><br>";
-                        echo "<a href = '" . BASE . "/Employee/index' >&#8592 Go Back to Home Page</a>";
                     } else {
                         echo "Password does not match.<br><br>";
-                        echo "<a href = '" . BASE . "/Default/editEmployeePassword' >&#8592 Go Back to Change Password</a>";
+                        $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
+                        return;
                     }
                 } else {
                     echo "Invalid old password.<br><br>";
-                    echo "<a href = '" . BASE . "/Default/editEmployeePassword' >&#8592 Go Back to Change Password</a>";
+                    $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
+                    return;
                 }
             } else {
                 echo "Input a new password.<br><br>";
-                echo "<a href = '" . BASE . "/Default/editEmployeePassword' >&#8592 Go Back to Change Password</a>";
+                $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
+                return;
             }
+
+            $this->view('Employee/employeeMainPage', $employee);
         } else {
-            $this->view('Employee/changeEmployeePassword');
+            $employee = new \App\models\Employee();
+            $employee = $employee->find($employee_id);
+            $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
         }
     }
 

@@ -15,7 +15,7 @@ class Employee extends \App\core\Model {
         parent::__construct();
     }
 
-    public function find($buyer_id) {
+    public function find($employee_id) {
         $stmt = self::$connection->prepare("SELECT * FROM employee WHERE employee_id = :employee_id");
         $stmt->execute(['employee_id' => $employee_id]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Employee");

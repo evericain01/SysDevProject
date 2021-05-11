@@ -9,9 +9,10 @@
         <?php
         echo "<a href='" . BASE . "/Default/logout' class='btn btn-light' style='float:right;'>Logout</a>";
 
-        echo "<a href='" . BASE . "/Manager/edit/$data->manager_id' class='btn btn-primary' style='display:inline; float:left;'>Modify Your Account</a><br><br>";
+        echo "<a href='" . BASE . "/Default/editManagerAccount/$data->manager_id' class='btn btn-primary' style='display:inline; float:left;'>Modify Your Account</a><br><br>";
 
-        echo "<a href='" . BASE . "/Manager/viewAllUsers' class='btn btn-primary' style='display:inline; float:left;'>View all Accounts</a><br><br>";
+        echo "<a href='" . BASE . "/Manager/viewAllUsers' class='btn btn-primary' style='display:inline; float:left;'>View all Accounts </a> ";
+        
         echo "<a href='" . BASE . "/Default/register/$data->manager_id' class='btn btn-primary' style='display:inline; float:left;'>Register an Account</a><br><br><br><br><br><br><br>";
 
         echo "<div class='homePageTitle'>Welcome, " . $data->first_name . " " . $data->last_name . "! <b>[MANAGER]</b></div><br><br><br><br>";
