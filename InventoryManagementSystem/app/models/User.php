@@ -19,8 +19,8 @@ class User extends \App\core\Model {
     }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO user(username, password_hash) VALUES (:username, :password_hash)");
-        $result = $stmt->execute(['username' => $this->username, 'password_hash' => $this->password_hash]);
+        $stmt = self::$connection->prepare("INSERT INTO user(username, password_hash, user_role) VALUES (:username, :password_hash, :user_role)");
+        $result = $stmt->execute(['username' => $this->username, 'password_hash' => $this->password_hash, 'user_role' => $this->user_role]);
         $this->user_id= self::$connection->lastInsertId();
         return $result;
     }

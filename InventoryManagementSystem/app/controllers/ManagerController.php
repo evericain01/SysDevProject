@@ -47,7 +47,7 @@ class ManagerController extends \App\core\Controller {
 
     function deleteManager($manager_id) {
         $manager = new \App\models\Manager();
-        $manager = $manager->find($manager_id)
+        $manager = $manager->find($manager_id);
         $manager->delete();
         
         header("location:" . BASE . "/Manager/viewAllUsers");
@@ -72,7 +72,7 @@ class ManagerController extends \App\core\Controller {
 
         $_SESSION['user_role'] = "manager";
         $user->user_role = "manager";
-        $user->update;
+        $user->update();
 
         $manager->insert();
         $employee->delete();

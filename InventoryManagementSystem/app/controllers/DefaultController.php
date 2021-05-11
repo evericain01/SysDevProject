@@ -8,29 +8,38 @@ class DefaultController extends \App\core\Controller {
         header('location:' . BASE . '/Login/login');
     }
 
-    function register() {
+    function register($manager_id) {
         if (isset($_POST['action'])) {
             if ($_POST['password'] == $_POST['password_confirm']) {
                 $user = new \App\models\User();
                 $user->username = $_POST['username'];
                 $user->password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $user->user_role = "employee";
+                $user->user_role = "Employee";
 
-                $result = $user->insert(); 
+                $result = $user->insert();
+
                 if ($result == false) {
-                    header('location:' . BASE . '/Default/register?error=Passwords do not match!'); //reload
+                    header('location:' . BASE . '/Default/register?error=Passwords do not match!');
                     return;
                 }
 
-                $_SESSION['user_role'] = $user->user_role;
-                $_SESSION['user_id'] = $user->user_id;
-                $_SESSION['username'] = $user->username;
+                $employee = new \App\models\Employee();
+                $employee->user_id = $user->user_id;
+                $employee->first_name = $_POST['first_name'];
+                $employee->last_name = $_POST['last_name'];
+                $employee->email = $_POST['email'];
+                $employee->phone_No = $_POST['phone_No'];
 
-                $this->view('Default/createProfile');
+                $employee->insert();
+
+                $manager = new \App\models\Manager();
+                $manager = $manager->find($manager_id);
+
+                $this->view('Manager/managerMainPage', $manager);
             } else
-                header('location:' . BASE . '/Login/register?error=Passwords do not match!'); //reload
+                header('location:' . BASE . '/Login/register?error=Passwords do not match!');
         } else {
-            $this->view('Login/Register');
+            $this->view('Login/createAccount');
         }
     }
 
@@ -100,16 +109,15 @@ class DefaultController extends \App\core\Controller {
             $user = $user->find($_POST['username']);
 
             if ($user != null && password_verify($_POST['password'], $user->password_hash)) {
-                    $_SESSION['user_id'] = $user->user_id;
-                    $_SESSION['username'] = $user->username;
-                    $_SESSION['user_role'] = $user->user_role;
-                    
-                    if ($_SESSION['user_role'] == 'Manager') {
+                $_SESSION['user_id'] = $user->user_id;
+                $_SESSION['username'] = $user->username;
+                $_SESSION['user_role'] = $user->user_role;
+
+                if ($_SESSION['user_role'] == 'Manager') {
                     header('location:' . BASE . '/Manager/managerMainPage');
                 } else {
                     header('location:' . BASE . '/Employee/employeeMainPage');
                 }
-                    
             } else
                 header('location:' . BASE . '/Login/login?error=Username/password mismatch!');
         } else {

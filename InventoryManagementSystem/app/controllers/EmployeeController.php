@@ -3,8 +3,8 @@
 namespace App\controllers;
 
 class EmployeeController extends \App\core\Controller {
-    
     #[\App\core\EmployeeFilter]
+
     function index() {
         $employee = new \App\models\Employee();
         $employee = $employee->findUserId($_SESSION['user_id']);
@@ -16,7 +16,7 @@ class EmployeeController extends \App\core\Controller {
         if (isset($_POST["action"])) {
             $employee = new \App\models\Employee();
             $employee = $employee->find($employee_id);
-            
+
             $employee->first_name = $_POST['first_name'];
             $employee->last_name = $_POST['last_name'];
             $employee->email = $_POST['email'];
@@ -28,7 +28,7 @@ class EmployeeController extends \App\core\Controller {
         } else {
             $manager = new \App\models\Manager();
             $manager = $manager->find($employee_id);
-            
+
             $this->view('Employee/modifyEmployeeProfile', $employee);
         }
     }
@@ -42,6 +42,7 @@ class EmployeeController extends \App\core\Controller {
 
         $this->view('Employee/listAllUsersForEmployee', ['managers' => $manager, 'employees' => $employee]);
     }
+
 }
 
 ?>
