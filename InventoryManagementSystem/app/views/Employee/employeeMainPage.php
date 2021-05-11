@@ -11,7 +11,7 @@
 
         echo "<a href='" . BASE . "/Default/editEmployeeAccount/$data->employee_id' class='btn btn-primary' style='display:inline; float:left;'>Modify Your Account</a><br><br>";
 
-        echo "<a href='" . BASE . "/Employee/viewAllUsers' class='btn btn-primary' style='display:inline; float:left;'>View all Accounts</a><br><br>";
+        echo "<a href='" . BASE . "/Employee/viewAllUsers' class='btn btn-primary' style='display:inline; float:left;'>View all Accounts</a><br><br><br><br>";
 
         echo "<div class='homePageTitle'>Welcome, " . $data->first_name . " " . $data->last_name . "! <b>[EMPLOYEE]</b></div><br><br><br><br>";
 

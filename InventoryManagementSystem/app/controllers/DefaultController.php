@@ -48,8 +48,6 @@ class DefaultController extends \App\core\Controller {
         $user = $user->find($_SESSION['username']);
 
         if (isset($_POST["action"])) {
-
-
             $manager = new \App\models\Manager();
             $manager = $manager->find($manager_id);
 
@@ -99,8 +97,6 @@ class DefaultController extends \App\core\Controller {
         $user = $user->find($_SESSION['username']);
 
         if (isset($_POST["action"])) {
-
-
             $employee = new \App\models\Employee();
             $employee = $employee->find($employee_id);
 

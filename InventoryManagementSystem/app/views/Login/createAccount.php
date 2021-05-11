@@ -23,7 +23,6 @@
             <label>Password Confirmation: <input type="password" name="password_confirm" placeholder="Re-type Password"/></label><br /><br>
 
             <input type="submit" name="action" class="btn btn-success" value="Create Employee Account" />
-
         </form>
 
         <a style='font-size:25px' href="<?= BASE ?>/Manager/index">Cancel</a>

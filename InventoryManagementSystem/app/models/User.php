@@ -11,6 +11,12 @@ class User extends \App\core\Model {
         parent::__construct();
     }
 
+    public function getAllUsers() {
+        $stmt = self::$connection->query("SELECT * FROM user");
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\User");
+        return $stmt->fetchAll();
+    }
+
     public function find($username) {
         $stmt = self::$connection->prepare("SELECT * FROM user WHERE username = :username");
         $stmt->execute(['username' => $username]);
@@ -21,12 +27,13 @@ class User extends \App\core\Model {
     public function insert() {
         $stmt = self::$connection->prepare("INSERT INTO user(username, password_hash, user_role) VALUES (:username, :password_hash, :user_role)");
         $result = $stmt->execute(['username' => $this->username, 'password_hash' => $this->password_hash, 'user_role' => $this->user_role]);
-        $this->user_id= self::$connection->lastInsertId();
+        $this->user_id = self::$connection->lastInsertId();
         return $result;
     }
 
     public function update($username) {
-        $stmt = self::$connection->prepare("UPDATE user SET password_hash = :password_hash WHERE username = :username");
-        $stmt->execute(['password_hash' => $this->password_hash, 'username' => $this->username]);
+        $stmt = self::$connection->prepare("UPDATE user SET password_hash=:password_hash, user_role=:user_role WHERE username = :username");
+        $stmt->execute(['password_hash' => $this->password_hash, 'user_role' => $this->user_role, 'username' => $this->username]);
     }
+
 }

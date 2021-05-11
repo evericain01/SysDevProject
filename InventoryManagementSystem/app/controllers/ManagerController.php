@@ -13,13 +13,15 @@ class ManagerController extends \App\core\Controller {
     }
 
     function viewAllUsers() {
+        $user = new \App\models\User();
         $employee = new \App\models\Employee();
         $manager = new \App\models\Manager();
 
+        $user = $user->getAllUsers();
         $employee = $employee->getAllEmployees();
         $manager = $manager->getAllManagers();
 
-        $this->view('Manager/listAllUsersForManager', ['managers' => $manager, 'employees' => $employee]);
+        $this->view('Manager/listAllUsersForManager', ['users' => $user, 'managers' => $manager, 'employees' => $employee]);
     }
 
     function addEmployee() {
@@ -59,8 +61,8 @@ class ManagerController extends \App\core\Controller {
         $manager->email = $employee->email;
         $manager->phone_No = $employee->phone_No;
 
-        $_SESSION['user_role'] = "manager";
-        $user->user_role = "manager";
+        $_SESSION['user_role'] = "Manager";
+        $user->user_role = "Manager";
         $user->update();
 
         $manager->insert();
@@ -76,9 +78,9 @@ class ManagerController extends \App\core\Controller {
         $user = $user->find($user_id);
         $manager = $manager->find($manager_id);
 
-        $_SESSION['user_role'] = "employee";
-        $user->user_role = "employee";
-        $user->update;
+        $_SESSION['user_role'] = "Employee";
+        $user->user_role = "Employee";
+        $user->update();
 
         $employee->user_id = $manager->user_id;
         $employee->first_name = $manager->first_name;
