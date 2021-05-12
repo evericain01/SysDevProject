@@ -2,6 +2,9 @@
 
 namespace App\controllers;
 
+use DateTime;
+use DateTimeZone;
+
 class PrinterController extends \App\core\Controller {
 
     function index() {
@@ -78,21 +81,27 @@ class PrinterController extends \App\core\Controller {
             $printer->printer_model = $_POST["model"];
             $printer->printer_brand = $_POST["brand"];
             $printer->quantity = $_POST["quantity"];
+            
+//            $printer->insert();
+            
+            $result = $printer->insert();
 
-            $printer->insert();
-
-
+            
+           
+            
             $date = new DateTime(null, new DateTimeZone("America/Toronto"));
-            $result = $date->format('Y-m-d H:i:s');
+            $dateResult = $date->format('Y-m-d H:i:s');
 
             $change = new \App\models\StockHistory();
             $change->user_id = $_SESSION['user_id'];
-            $change->printer_id = $printer->printer_id;
-            $change->date = $result;
+            $change->printer_id = $result->printer_id;
+            
+//            var_dump($printer->printer_id);
+            $change->date = $dateResult;
 
             $change->insert();
 
-            header("location:" . BASE . "/Printer/index");
+//            header("location:" . BASE . "/Printer/index");
         } else {
             $this->view('Printer/addNewPrinter');
         }

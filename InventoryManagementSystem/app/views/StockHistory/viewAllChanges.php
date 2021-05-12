@@ -16,7 +16,7 @@
                 if ($change->user_id == $user->user_id) {
                     foreach ($data['printers'] as $printer) {
                         if($change->printer_id == $printer->printer_id) {
-                            echo "<b>Username: </b>" . $user->username;
+                            echo "<b>Username: </b>" . $user->username . "<br>";
                             echo "<b>Printer model:</b> $printer->printer_model<br>";
                             echo "<b>Printer brand:</b> $printer->printer_brand<br>";
                             echo "<b>Timestamp of change:</b> $change->date<br>";
@@ -45,7 +45,12 @@
             }
         }
 
-        echo "<br><br><div class='homepageLink'><h4><a href='" . BASE . "/Employee/index' class='btn btn-light'>&#8592 Go Back to Main Page</a></h4></div>";
+        
+        if ($_SESSION['user_role'] == 'Manager') {
+        echo "<br><br><div class='homepageLink'><h4><a href='" . BASE . "/Manager/index' class='btn btn-light'>&#8592 Go Back to Main Page</a></h4></div>";
+        }else {
+            echo "<br><br><div class='homepageLink'><h4><a href='" . BASE . "/Employee/index' class='btn btn-light'>&#8592 Go Back to Main Page</a></h4></div>";
+        }
         echo "</div>"
         ?>
     </body>

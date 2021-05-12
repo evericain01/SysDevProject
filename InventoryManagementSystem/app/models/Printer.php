@@ -158,9 +158,9 @@ class Printer extends \App\core\Model {
     public function insert() {
         $stmt = self::$connection->prepare("INSERT INTO printer(printer_model, printer_brand, quantity) 
         VALUES (:printer_model, :printer_brand, :quantity)");
-        $stmt->execute(['printer_model' =>
-            $this->printer_model, 'printer_brand' => $this->printer_brand, 'quantity' => $this->quantity,
-            'rma_status' => $this->rma_status]);
+        $result = $stmt->execute(['printer_model' =>
+            $this->printer_model, 'printer_brand' => $this->printer_brand, 'quantity' => $this->quantity]);
+        return $result;
     }
 
     public function delete() {
