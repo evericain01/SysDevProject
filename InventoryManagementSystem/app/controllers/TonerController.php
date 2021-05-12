@@ -79,6 +79,17 @@ class TonerController extends \App\core\Controller {
             $toner->quantity = $_POST["quantity"];
 
             $toner->insert();
+
+            $date = new DateTime(null, new DateTimeZone("America/Toronto"));
+            $result = $date->format('Y-m-d H:i:s');
+
+            $change = new \App\models\StockHistory();
+            $change->user_id = $_SESSION['user_id'];
+            $change->toner_id = $toner->toner_id;
+            $change->date = $result;
+
+            $change->insert();
+
             header("location:" . BASE . "/Toner/index");
         } else {
             $this->view('Toner/addNewToner');
@@ -93,6 +104,17 @@ class TonerController extends \App\core\Controller {
             $toner->quantity = $_POST["quantity"];
 
             $toner->update();
+
+            $date = new DateTime(null, new DateTimeZone("America/Toronto"));
+            $result = $date->format('Y-m-d H:i:s');
+
+            $change = new \App\models\StockHistory();
+            $change->user_id = $_SESSION['user_id'];
+            $change->toner_id = $toner_id;
+            $change->date = $result;
+
+            $change->insert();
+
             header("location:" . BASE . "/Toner/index");
         } else {
             $toner = new \App\models\Toner();

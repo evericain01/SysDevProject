@@ -80,6 +80,18 @@ class PrinterController extends \App\core\Controller {
             $printer->quantity = $_POST["quantity"];
 
             $printer->insert();
+
+
+            $date = new DateTime(null, new DateTimeZone("America/Toronto"));
+            $result = $date->format('Y-m-d H:i:s');
+
+            $change = new \App\models\StockHistory();
+            $change->user_id = $_SESSION['user_id'];
+            $change->printer_id = $printer->printer_id;
+            $change->date = $result;
+
+            $change->insert();
+
             header("location:" . BASE . "/Printer/index");
         } else {
             $this->view('Printer/addNewPrinter');
@@ -94,6 +106,17 @@ class PrinterController extends \App\core\Controller {
             $printer->quantity = $_POST["quantity"];
 
             $printer->update();
+
+            $date = new DateTime(null, new DateTimeZone("America/Toronto"));
+            $result = $date->format('Y-m-d H:i:s');
+
+            $change = new \App\models\StockHistory();
+            $change->user_id = $_SESSION['user_id'];
+            $change->printer_id = $printer_id;
+            $change->date = $result;
+
+            $change->insert();
+
             header("location:" . BASE . "/Printer/index");
         } else {
             $printer = new \App\models\Printer();

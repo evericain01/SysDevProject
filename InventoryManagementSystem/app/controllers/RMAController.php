@@ -44,13 +44,19 @@ class RMAController extends \App\core\Controller {
             $result = $date->format('Y-m-d H:i:s');
             $rma->date = $result;
 
+            $change = new \App\models\StockHistory();
+            $change->user_id = $_SESSION['user_id'];
+            $change->printer_id = $printer_id;
+            $change->date = $result;
+
             if ($printer->quantity >= 0) {
                 $printer->update();
                 $rma->insert();
+                $change->insert();
                 header("location:" . BASE . "/Printer/index");
             } else {
 
-                header("location:" . BASE . "/RMA/rmaPrinter/$printer_id?error=Quantity excceded: printer has $printerQuantity in stock");
+                header("location:" . BASE . "/RMA/rmaPrinter/$printer_id?error=Quantity exceeded: printer has $printerQuantity in stock");
             }
         } else {
             $printer = new \App\models\Printer();
@@ -77,13 +83,19 @@ class RMAController extends \App\core\Controller {
             $result = $date->format('Y-m-d H:i:s');
             $rma->date = $result;
 
+            $change = new \App\models\StockHistory();
+            $change->user_id = $_SESSION['user_id'];
+            $change->toner_id = $toner_id;
+            $change->date = $result;
+
             if ($toner->quantity >= 0) {
                 $toner->update();
                 $rma->insert();
+                $change->insert();
                 header("location:" . BASE . "/Toner/index");
             } else {
 
-                header("location:" . BASE . "/RMA/rmaToner/$toner_id?error=Quantity excceded: printer has $tonerQuantity in stock");
+                header("location:" . BASE . "/RMA/rmaToner/$toner_id?error=Quantity exceeded: printer has $tonerQuantity in stock");
             }
         } else {
             $toner = new \App\models\Toner();
