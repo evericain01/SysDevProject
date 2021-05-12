@@ -6,7 +6,7 @@
     </head>
     <body>
         <h3>Modify Your Manager Account:</h3><br><br>
-
+        <br>
         <form style='text-align:left' method="post" action="">
             <label>New Username: <input type="text" name="username" value="<?= $data['user']->username ?>"/></label><br>
             <label>New First Name: <input type="text" name="first_name" value="<?= $data['manager']->first_name ?>"/></label><br>

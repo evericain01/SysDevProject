@@ -72,7 +72,7 @@ class DefaultController extends \App\core\Controller {
                         $user->password_hash = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                         $user->update($_SESSION['username']);
                     } else {
-                        echo "<div style='color: red; font-size:20px'>Password does not match.</div><br><";
+                        echo "<div style='color: red; font-size:20px'>Password does not match.</div><br>";
                         $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
                         return;
                     }
