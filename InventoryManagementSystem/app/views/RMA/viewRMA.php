@@ -10,11 +10,12 @@
 
         echo "<div style='text-align:left;'><i>(*Sorted by most recent RMA reports)</i></div><br><br>";
         echo "<div style='text-align:left;'>";
+        echo "<hr style='width:325px;text-align:left;background-color:black;margin-left:0'>";
 
         // using the array_reverse function to sort by date.
         foreach (array_reverse($data['rmas']) as $rma) {
             if ($rma->printer_id != null) {
-                foreach (array_reverse($data['printers']) as $printer) {
+                foreach ($data['printers'] as $printer) {
                     if ($rma->printer_id == $printer->printer_id) {
                         echo "<div style='max-width: 300px;'>";
                         echo "<b>Brand:</b> $printer->printer_brand<br>";
@@ -30,7 +31,7 @@
                     }
                 }
             } else {
-                foreach (array_reverse($data['toners']) as $toner) {
+                foreach ($data['toners'] as $toner) {
                     if ($rma->toner_id == $toner->toner_id) {
                         echo "<div style='max-width: 300px;'>";
                         echo "<b>Brand:</b> $toner->toner_brand<br>";

@@ -2,6 +2,9 @@
 
 namespace App\controllers;
 
+use DateTime;
+use DateTimeZone;
+
 class TonerController extends \App\core\Controller {
 
     function index() {
@@ -22,7 +25,7 @@ class TonerController extends \App\core\Controller {
                     // Checks if the user has set a sorting method.
                     // Sets toner to an array of toner objects by searching the toners by model then sorting by the chosen method.
                     if (isset($_POST['sort'])) {
-                        if ($_POST['sort'] == 'nameAsc') {                            
+                        if ($_POST['sort'] == 'nameAsc') {
                             $toner = $toner->searchTonerModelAsc($keyword);
                         } elseif ($_POST['sort'] == 'nameDesc') {
                             $toner = $toner->searchTonerModelDesc($keyword);
@@ -36,7 +39,7 @@ class TonerController extends \App\core\Controller {
                     } else {
                         $toner = $toner->searchTonerModel($keyword);
                     }
-                // Checks if the filter is set to brand.
+                    // Checks if the filter is set to brand.
                 } elseif ($_POST['filter'] == 'brand') {
                     // Checks if the user has set a sorting method.
                     // Sets toner to an array of toner objects by searching the toners by brand then sorting by the chosen method.
@@ -75,7 +78,6 @@ class TonerController extends \App\core\Controller {
                     $toner = $toner->searchAllToner($keyword);
                 }
             }
-            
             $this->view('Toner/viewTonerStock', $toner);
         } else {
             $toner = new \App\models\Toner();
@@ -95,13 +97,32 @@ class TonerController extends \App\core\Controller {
             $toner->insert();
 
             $date = new DateTime(null, new DateTimeZone("America/Toronto"));
-            $result = $date->format('Y-m-d H:i:s');
+            $dateResult = $date->format('Y-m-d H:i:s');
 
             $change = new \App\models\StockHistory();
             $change->user_id = $_SESSION['user_id'];
             $change->toner_id = $toner->toner_id;
-            $change->date = $result;
 
+            if ($_SESSION['user_role'] == 'Manager') {
+                $manager = new \App\models\Manager();
+                $manager = $manager->findUserId($_SESSION['user_id']);
+
+                $firstname = $manager->first_name;
+                $lastname = $manager->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            } else {
+                $employee = new \App\models\Employee();
+                $employee = $employee->findUserId($_SESSION['user_id']);
+
+                $firstname = $employee->first_name;
+                $lastname = $employee->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            }
+
+            $change->type_of_change = "ADDED TONER:<br>" . " Quantity: $toner->quantity";
+            $change->date = $dateResult;
             $change->insert();
 
             header("location:" . BASE . "/Toner/index");
@@ -115,6 +136,9 @@ class TonerController extends \App\core\Controller {
             $toner = new \App\models\Toner();
             $toner = $toner->find($toner_id);
 
+            $previousStock = $toner->quantity;
+            $newStock = $_POST["quantity"];
+
             $toner->quantity = $_POST["quantity"];
 
             $toner->update();
@@ -125,6 +149,31 @@ class TonerController extends \App\core\Controller {
             $change = new \App\models\StockHistory();
             $change->user_id = $_SESSION['user_id'];
             $change->toner_id = $toner_id;
+
+            if ($_SESSION['user_role'] == 'Manager') {
+                $manager = new \App\models\Manager();
+                $manager = $manager->findUserId($_SESSION['user_id']);
+
+                $firstname = $manager->first_name;
+                $lastname = $manager->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            } else {
+                $employee = new \App\models\Employee();
+                $employee = $employee->findUserId($_SESSION['user_id']);
+
+                $firstname = $employee->first_name;
+                $lastname = $employee->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            }
+
+            if ($previousStock < $newStock) {
+                $change->type_of_change = "$toner->model" . " STOCK: +" . $newStock - $previousStock;
+            } else {
+                $change->type_of_change = "$toner->model" . " STOCK: -" . $previousStock - $newStock;
+            }
+
             $change->date = $result;
 
             $change->insert();

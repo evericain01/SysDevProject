@@ -96,6 +96,7 @@ class Printer extends \App\core\Model {
         return $stmt->fetchAll();
     }
 
+
     public function searchAllPrinters($keyword) {
         $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword");
         $stmt->execute(['keyword'=>"%".$keyword."%"]);
@@ -103,12 +104,14 @@ class Printer extends \App\core\Model {
         return $stmt->fetchAll();
     }
 
+
     public function searchAllPrintersSortName($keyword) {
         $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword ORDER BY printer_model");
         $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
         return $stmt->fetchAll();
     }
+
 
     public function searchAllPrintersSortNameDesc($keyword) {
         $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword ORDER BY printer_model DESC");
@@ -171,6 +174,7 @@ class Printer extends \App\core\Model {
         VALUES (:printer_model, :printer_brand, :quantity)");
         $result = $stmt->execute(['printer_model' =>
             $this->printer_model, 'printer_brand' => $this->printer_brand, 'quantity' => $this->quantity]);
+        $this->printer_id = self::$connection->lastInsertId();
         return $result;
     }
 

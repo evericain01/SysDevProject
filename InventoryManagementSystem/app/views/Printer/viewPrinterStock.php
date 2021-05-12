@@ -10,7 +10,7 @@
 
         <?php
         echo "<form action='' method='post'>";
-        echo "<a href='" . BASE . "/StockHistory/index' style='font-size:17px'>[View Printer Stock History]</a>&nbsp&nbsp&nbsp<br><br><br>";
+        echo "<a href='" . BASE . "/StockHistory/viewPrinterHistory' style='font-size:17px'>[View Printer Stock History]</a>&nbsp&nbsp&nbsp<br><br><br>";
         echo "<input type='text' id='keyword' placeholder='Search Printers' name='keyword'></br>";
 
         // Loop for adding spaces to line up both hyperlinks. Remove if you know a better way.

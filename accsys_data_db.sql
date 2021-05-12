@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 05:20 PM
+-- Generation Time: May 12, 2021 at 10:33 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -94,18 +94,18 @@ CREATE TABLE `printer` (
 --
 
 INSERT INTO `printer` (`printer_id`, `printer_model`, `printer_brand`, `quantity`) VALUES
-(1, 'MFC-L9570CDW', 'Brother', 10),
+(1, 'MFC-L9570CDW', 'Brother', 12),
 (2, 'Phaser 6510', 'XEROX', 0),
 (3, 'CX923DXE', 'LEXMARK', 1),
-(5, 'MFC-J491D', 'Brother', 2),
+(5, 'MFC-J491D', 'Brother', 4),
 (6, 'ImageCLASS MF810', 'XEROX', 9),
-(7, 'LaserJet Enterprise MFP M480f', 'HP', 1),
+(7, 'LaserJet Enterprise MFP M480f', 'HP', 2),
 (8, 'LaserJet Enterprise MFP M776dn', 'HP', 1),
 (9, 'VersaLink C9000/DT', 'XEROX', 12),
 (10, 'Officejet Pro 7740 AIO', 'HP', 10),
 (11, 'ImageCLASS MF644Cdw', 'CANON', 11),
 (12, 'MFC-J6930DW', 'Brother', 8),
-(13, 'PIXMA TR7020', 'CANON', 12),
+(13, 'PIXMA TR7020', 'CANON', 11),
 (14, 'Officejet Pro 9020 AIO', 'HP', 5),
 (15, 'VersaLink C7030/DS2', 'XEROX', 2),
 (16, 'HL-L5000D', 'Brother', 8),
@@ -155,7 +155,9 @@ CREATE TABLE `stock_history` (
   `user_id` int(11) NOT NULL,
   `printer_id` int(11) DEFAULT NULL,
   `toner_id` int(11) DEFAULT NULL,
-  `date` varchar(16) NOT NULL
+  `worker_name` varchar(64) NOT NULL,
+  `date` varchar(16) NOT NULL,
+  `type_of_change` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -177,9 +179,9 @@ CREATE TABLE `toner` (
 --
 
 INSERT INTO `toner` (`toner_id`, `toner_model`, `toner_brand`, `quantity`) VALUES
-(1, 'Phaser 6250 High Capacity', 'XEROX', 24),
+(1, 'Phaser 6250 High Capacity', 'XEROX', 12),
 (2, '056 Black', 'CANON', 21),
-(3, 'TN433BK High Yield Black', 'Brother', 47),
+(3, 'TN433BK High Yield Black', 'Brother', 50),
 (4, 'TN431Y Yellow', 'Brother', 24),
 (5, '16A Black', 'HP', 10),
 (6, '131 Magenta', 'CANON', 7),
@@ -296,25 +298,25 @@ ALTER TABLE `manager`
 -- AUTO_INCREMENT for table `printer`
 --
 ALTER TABLE `printer`
-  MODIFY `printer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `printer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `rma`
 --
 ALTER TABLE `rma`
-  MODIFY `rma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `rma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `stock_history`
 --
 ALTER TABLE `stock_history`
-  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `toner`
 --
 ALTER TABLE `toner`
-  MODIFY `toner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `toner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user`

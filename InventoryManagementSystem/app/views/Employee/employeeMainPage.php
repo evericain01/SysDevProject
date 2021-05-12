@@ -23,6 +23,12 @@
         echo "<div><a href='" . BASE . "/Toner/index' style='font-size: 25px;'>View Toner Stock</a><br><br></div>";
         echo "<div><a href='" . BASE . "/RMA/index' style='font-size: 25px;'>View RMA'd Products</a><br><br></div>";
         
+        echo "<br><br><br><div style='margin-left:-70%;color:grey;'>";
+        echo "Contact Support:<br><br>";
+        echo "Phone Number: 514-924-3495<br>";
+        echo "Email: accsys_staff@outlook.com";
+        echo "</div>";
+        
         echo "<hr style='width:100%;text-align:left;margin-left:0'>";
         ?>
     </body>

@@ -35,7 +35,8 @@ class RMAController extends \App\core\Controller {
             $rma->printer_id = $printer_id;
 
             $printerQuantity = $printer->quantity;
-            
+            $deductedStock = $_POST["quantity_deducted"];
+
             $printer->quantity -= $_POST["quantity_deducted"];
             $rma->rma_reason = $_POST["rma"];
             $rma->rma_quantity = $_POST["quantity_deducted"];
@@ -47,6 +48,27 @@ class RMAController extends \App\core\Controller {
             $change = new \App\models\StockHistory();
             $change->user_id = $_SESSION['user_id'];
             $change->printer_id = $printer_id;
+
+            if ($_SESSION['user_role'] == 'Manager') {
+                $manager = new \App\models\Manager();
+                $manager = $manager->findUserId($_SESSION['user_id']);
+
+                $firstname = $manager->first_name;
+                $lastname = $manager->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            } else {
+                $employee = new \App\models\Employee();
+                $employee = $employee->findUserId($_SESSION['user_id']);
+
+                $firstname = $employee->first_name;
+                $lastname = $employee->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            }
+
+            $change->type_of_change = "$printer->model" . " RMA:" . " $deductedStock";
+
             $change->date = $result;
 
             if ($printer->quantity >= 0) {
@@ -74,6 +96,7 @@ class RMAController extends \App\core\Controller {
             $rma->toner_id = $toner_id;
 
             $tonerQuantity = $toner->quantity;
+            $deductedStock = $_POST["quantity_deducted"];
 
             $toner->quantity -= $_POST["quantity_deducted"];
             $rma->rma_reason = $_POST["rma"];
@@ -86,6 +109,27 @@ class RMAController extends \App\core\Controller {
             $change = new \App\models\StockHistory();
             $change->user_id = $_SESSION['user_id'];
             $change->toner_id = $toner_id;
+
+            if ($_SESSION['user_role'] == 'Manager') {
+                $manager = new \App\models\Manager();
+                $manager = $manager->findUserId($_SESSION['user_id']);
+
+                $firstname = $manager->first_name;
+                $lastname = $manager->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            } else {
+                $employee = new \App\models\Employee();
+                $employee = $employee->findUserId($_SESSION['user_id']);
+
+                $firstname = $employee->first_name;
+                $lastname = $employee->last_name;
+
+                $change->worker_name = $firstname . " " . $lastname;
+            }
+
+            $change->type_of_change = "$toner->model" . " RMA:" . " $deductedStock";
+
             $change->date = $result;
 
             if ($toner->quantity >= 0) {

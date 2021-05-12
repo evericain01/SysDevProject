@@ -4,19 +4,28 @@ namespace App\controllers;
 
 class StockHistoryController extends \App\core\Controller {
 
-    function index() {
+    function viewPrinterHistory() {
         $users = new \App\models\User();
         $changes = new \App\models\StockHistory();
         $printers = new \App\models\Printer();
-        $toners = new \App\models\Toner();
 
+        $changes = $changes->getAllChanges();
+        $users = $users->getAllUsers();
+        $printers = $printers->getAllPrinters();
+
+        $this->view('StockHistory/printerHistory', ['changes' => $changes, 'users' => $users, 'printers' => $printers]);
+    }
+
+    function viewTonerHistory() {
+        $users = new \App\models\User();
+        $changes = new \App\models\StockHistory();
+        $toners = new \App\models\Toner();
 
         $changes = $changes->getAllChanges();
         $users = $users->getAllUsers();
         $toners = $toners->getAllToners();
-        $printers = $printers->getAllPrinters();
 
-        $this->view('StockHistory/viewAllChanges', ['changes' => $changes, 'users' => $users, 'printers' => $printers, 'toners' => $toners]);
+        $this->view('StockHistory/tonerHistory', ['changes' => $changes, 'users' => $users, 'toners' => $toners]);
     }
 }
 
