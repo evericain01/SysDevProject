@@ -23,7 +23,7 @@
 
         echo "<div><a href='" . BASE . "/Printer/index' style='font-size: 25px;'>View Printer Stock</a><br><br></div>";
         echo "<div><a href='" . BASE . "/Toner/index' style='font-size: 25px;'>View Toner Stock</a><br><br></div>";
-        echo "<div><a href='" . BASE . "/RMA/index' style='font-size: 25px;'>View RMA Products</a><br><br></div>";
+        echo "<div><a href='" . BASE . "/RMA/index' style='font-size: 25px;'>View RMA'd Products</a><br><br></div>";
 
         echo "<hr style='width:100%;text-align:left;margin-left:0'>";
         ?>

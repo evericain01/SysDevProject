@@ -10,16 +10,18 @@
 
         echo "<div style='text-align:left;'><i>(*Sorted by most recent RMA reports)</i></div><br><br>";
         echo "<div style='text-align:left;'>";
-
-        foreach ($data['rmas'] as $rma) {
+        
+        // using the array_reverse function to sort by date.
+        foreach (array_reverse($data['rmas']) as $rma) {
             if ($rma->printer_id != null) {
-                foreach ($data['printers'] as $printer) {
+                foreach (array_reverse($data['printers']) as $printer) {
                     if ($rma->printer_id == $printer->printer_id) {
                         echo "<div style='max-width: 300px;'>";
                         echo "<b>Brand:</b> $printer->printer_brand<br>";
                         echo "<b>Model:</b> $printer->printer_model<br><br>";
                         echo "<b>Reason:</b> $rma->rma_reason<br><br>";
                         echo "<b>RMA Quantity:</b> $rma->rma_quantity<br>";
+                        echo "<b>Date: </b><i>$rma->date</i><br>";
                         if ($_SESSION['user_role'] == 'Manager') {
                             echo "<a href='" . BASE . "/RMA/delete/$rma->rma_id' style='padding: 2px 2px; margin-top: 5px;' class='btn btn-danger'>REMOVE RMA</a><br>";
                         }
@@ -29,13 +31,14 @@
                     
                 }
             } else {
-                foreach ($data['toners'] as $toner) {
+                foreach (array_reverse($data['toners']) as $toner) {
                     if ($rma->toner_id == $toner->toner_id) {
                         echo "<div style='max-width: 300px;'>";
                         echo "<b>Brand:</b> $toner->toner_brand<br>";
                         echo "<b>Model:</b> $toner->toner_model<br><br>";
                         echo "<b>Reason:</b> $rma->rma_reason<br><br>";
                         echo "<b>RMA Quantity:</b> $rma->rma_quantity<br>";
+                        echo "<b>Date: </b><i>$rma->date</i><br>";
                         if ($_SESSION['user_role'] == 'Manager') {
                             echo "<a href='" . BASE . "/RMA/delete/$rma->rma_id' style='padding: 2px 2px; margin-top: 5px;' class='btn btn-danger'>REMOVE RMA</a><br>";
                         }

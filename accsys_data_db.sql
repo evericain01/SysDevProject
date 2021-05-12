@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 07:16 AM
+-- Generation Time: May 12, 2021 at 03:10 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -97,12 +97,11 @@ INSERT INTO `printer` (`printer_id`, `printer_model`, `printer_brand`, `quantity
 (1, 'MFC-L9570CDW', 'Brother', 13),
 (2, 'Phaser 6510', 'XEROX', 1),
 (3, 'CX923DXE', 'LEXMARK', 1),
-(4, 'CX923DXE', 'Brother', 18),
 (5, 'MFC-J491D', 'Brother', 2),
-(6, 'ImageCLASS MF810', 'XEROX', 11),
+(6, 'ImageCLASS MF810', 'XEROX', 10),
 (7, 'LaserJet Enterprise MFP M480f', 'HP', 1),
-(8, 'LaserJet Enterprise MFP M776dn', 'HP', 1),
-(9, 'VersaLink C9000/DT', 'XEROX', 14),
+(8, 'LaserJet Enterprise MFP M776dn', 'HP', -2),
+(9, 'VersaLink C9000/DT', 'XEROX', 12),
 (10, 'Officejet Pro 7740 AIO', 'HP', 10),
 (11, 'ImageCLASS MF644Cdw', 'CANON', 11),
 (12, 'MFC-J6930DW', 'Brother', 8),
@@ -139,10 +138,11 @@ CREATE TABLE `rma` (
 
 INSERT INTO `rma` (`rma_id`, `printer_id`, `toner_id`, `date`, `rma_reason`, `rma_quantity`) VALUES
 (5, 1, NULL, '2021-05-12 10:27:31', 'Stopped working after 2 weeks. Needs fixing asap.', 1),
-(6, 4, NULL, '2021-05-12 10:28:22', 'Printer jammed. Printer is making weird sound when trying to print something', 1),
 (7, NULL, 1, '2021-05-12 10:29:34', 'They cartridges are not compatible with my printer. I did know this, so they broken now', 4),
 (8, NULL, 11, '2021-05-12 10:30:19', 'The black ink started to leak in my printer for some reason. Need replacement ASAP.', 1),
-(9, NULL, 11, '2021-05-12 10:31:13', 'The toner cartridge doesn\'t fit into my printer. Need an exchange. ', 2);
+(9, NULL, 11, '2021-05-12 10:31:13', 'The toner cartridge doesn\'t fit into my printer. Need an exchange. ', 2),
+(10, 8, NULL, '2021-05-12 18:41:05', 'Printer jammed. Printer is making weird sound when trying to print something.', 3),
+(12, 9, NULL, '2021-05-12 19:06:42', 'dsfdsfsdfasdadsad', 2);
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,7 @@ ALTER TABLE `printer`
 -- AUTO_INCREMENT for table `rma`
 --
 ALTER TABLE `rma`
-  MODIFY `rma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `rma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `stock_history`

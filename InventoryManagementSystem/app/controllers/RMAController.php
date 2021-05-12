@@ -2,6 +2,9 @@
 
 namespace App\controllers;
 
+use DateTime;
+use DateTimeZone;
+
 class RMAController extends \App\core\Controller {
 
     function index() {
@@ -31,9 +34,11 @@ class RMAController extends \App\core\Controller {
             $rma = new \App\models\RMA();
             $rma->printer_id = $printer_id;
             
-            $rma->rma_reason = $_POST["rma"];
             $printer->quantity -= $_POST["quantity_deducted"];
+            $rma->rma_reason = $_POST["rma"];
             $rma->rma_quantity = $_POST["quantity_deducted"];
+            
+//            $rma->date = new DateTime(null, new DateTimeZone("America/Toronto"));
             
             $printer->update();
             $rma->insert();
@@ -53,9 +58,11 @@ class RMAController extends \App\core\Controller {
             $rma = new \App\models\RMA();
             $rma->toner_id = $toner_id;
 
-            $rma->rma_reason = $_POST["rma"];
             $toner->quantity -= $_POST["quantity_deducted"];
+            $rma->rma_reason = $_POST["rma"];
             $rma->rma_quantity = $_POST["quantity_deducted"];
+            
+//             $rma->date = new DateTime(null, new DateTimeZone("America/Toronto"));
 
             $toner->update();
             $rma->insert();
