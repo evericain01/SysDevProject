@@ -9,7 +9,7 @@
     <body>
         <?php
         if (isset($_GET['error']))
-            echo $_GET['error'];
+            echo "<div style='color: red; font-size:20px'>" . $_GET['error'] . "</div>";
         ?>
         
         <h1>Login</h1><br><br><br><br>

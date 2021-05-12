@@ -8,7 +8,6 @@ class Toner extends \App\core\Model {
     public $toner_model;
     public $toner_brand;
     public $quantity;
-    public $rma_status; //should be an enum (check, unchecked)
 
     public function __construct() {
         parent::__construct();
@@ -121,47 +120,46 @@ class Toner extends \App\core\Model {
         return $stmt->fetchAll();
     }
 
-    public function searchAllRma($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword)");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortName($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY toner_model");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortNameDesc($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY toner_model DESC");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortStock($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY quantity");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortStockDesc($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY quantity DESC");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
-        return $stmt->fetchAll();
-    }
+//    public function searchAllRma($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword)");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortName($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY toner_model");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortNameDesc($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY toner_model DESC");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortStock($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY quantity");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortStockDesc($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE rma_status = 'check' AND (toner_model LIKE :keyword OR toner_brand LIKE :keyword) ORDER BY quantity DESC");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+//        return $stmt->fetchAll();
+//    }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO toner(toner_model, toner_brand, quantity, rma_status) 
-        VALUES (:toner_model, :toner_brand, :quantity, :rma_status)");
+        $stmt = self::$connection->prepare("INSERT INTO toner(toner_model, toner_brand, quantity) 
+        VALUES (:toner_model, :toner_brand, :quantity)");
         $stmt->execute(['toner_model' =>
-            $this->toner_model, 'toner_brand' => $this->toner_brand, 'quantity' => $this->quantity,
-            'rma_status' => $this->rma_status]);
+            $this->toner_model, 'toner_brand' => $this->toner_brand, 'quantity' => $this->quantity]);
     }
 
     public function delete() {
@@ -170,9 +168,9 @@ class Toner extends \App\core\Model {
     }
 
     public function update() {
-        $stmt = self::$connection->prepare("UPDATE toner SET toner_id=:toner_id, toner_model=:toner_model, toner_brand=:toner_brand, quantity=:quantity, rma_status=:rma_status WHERE toner_id=:toner_id");
+        $stmt = self::$connection->prepare("UPDATE toner SET toner_id=:toner_id, toner_model=:toner_model, toner_brand=:toner_brand, quantity=:quantity WHERE toner_id=:toner_id");
         $stmt->execute(['toner_id' => $this->toner_id, 'toner_model' => $this->toner_model, 
-            'toner_brand' => $this->toner_brand, 'quantity' => $this->quantity,'rma_status' => $this->rma_status]);
+            'toner_brand' => $this->toner_brand, 'quantity' => $this->quantity]);
     }
 
 }

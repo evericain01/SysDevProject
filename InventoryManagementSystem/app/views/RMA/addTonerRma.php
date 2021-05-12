@@ -2,7 +2,7 @@
     <head>
         <link rel="stylesheet" href="<?= BASE ?>/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?= BASE ?>/css/style.css" type="text/css">
-        <title>Edit Toner</title>
+        <title>Add Toner RMA</title>
     </head>
 
     <body>
@@ -11,8 +11,9 @@
         ?>
 
         <form style='text-align:left' method="post" action="">
-            <label>New Quantity: <input type="number" step="1" min="0" name="quantity" style="width: 53px;" value="<?= $data->quantity ?>"/></label><br><br>
-            <input type="submit" name="action" class="btn btn-success" value="Submit Changes" />
+            <label>Quantity Broken: <input type="number" step="1" min="0" style="width: 53px;" name="quantity_deducted"/></label><br><br>
+            <label>Reason:<br> <textarea rows="5" cols="50" name="rma"></textarea></label><br><br>
+            <input type="submit" name="action" class="btn btn-success" value="File RMA" />
         </form>
 
         <?php

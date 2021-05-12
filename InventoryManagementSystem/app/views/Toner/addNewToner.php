@@ -2,17 +2,17 @@
     <head>
         <link rel="stylesheet" href="<?= BASE ?>/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?= BASE ?>/css/style.css" type="text/css">
-        <title>Edit Toner</title>
+        <title>Add Toner</title>
     </head>
 
     <body>
-        <?php
-        echo "<b style='font-size: 25px;'>Toner: " . $data->toner_brand . " " . $data->toner_model . "</b><br><br><br><br>";
-        ?>
 
+        <h2>Adding New Toner:</h2><br><br>
         <form style='text-align:left' method="post" action="">
-            <label>New Quantity: <input type="number" step="1" min="0" name="quantity" style="width: 53px;" value="<?= $data->quantity ?>"/></label><br><br>
-            <input type="submit" name="action" class="btn btn-success" value="Submit Changes" />
+            <label>Toner Brand: <input type="text" name="brand"/></label><br><br>
+            <label>Toner Model: <input type="text" name="model"/></label><br><br>
+            <label>Toner Quantity: <input type="number" step="1" min="0" style="width: 53px;" name="quantity"/></label><br><br>
+            <input type="submit" name="action" class="btn btn-success" value="Add Toner" />
         </form>
 
         <?php

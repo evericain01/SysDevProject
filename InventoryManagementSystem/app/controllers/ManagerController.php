@@ -61,13 +61,13 @@ class ManagerController extends \App\core\Controller {
         $manager->email = $employee->email;
         $manager->phone_No = $employee->phone_No;
 
-        $_SESSION['user_role'] = "Manager";
+        $user = $user->findByUserId($employee->user_id);
         $user->user_role = "Manager";
-        $user->update();
+        $user->update($user->username);
 
         $manager->insert();
         $employee->delete();
-        header("location:" . BASE . "/Manager/index");
+        header("location:" . BASE . "/Manager/viewAllUsers");
     }
 
     function demote($manager_id) {
@@ -75,12 +75,7 @@ class ManagerController extends \App\core\Controller {
         $manager = new \App\models\Manager();
         $user = new \App\models\User();
 
-        $user = $user->find($user_id);
         $manager = $manager->find($manager_id);
-
-        $_SESSION['user_role'] = "Employee";
-        $user->user_role = "Employee";
-        $user->update();
 
         $employee->user_id = $manager->user_id;
         $employee->first_name = $manager->first_name;
@@ -88,9 +83,13 @@ class ManagerController extends \App\core\Controller {
         $employee->email = $manager->email;
         $employee->phone_No = $manager->phone_No;
 
+        $user = $user->findByUserId($manager->user_id);
+        $user->user_role = "Employee";
+        $user->update($user->username);
+
         $employee->insert();
         $manager->delete();
-        header("location:" . BASE . "/Manager/index");
+        header("location:" . BASE . "/Manager/viewAllUsers");
     }
 
     function addTonerRma($toner_id) {

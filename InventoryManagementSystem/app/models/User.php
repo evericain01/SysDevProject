@@ -6,6 +6,7 @@ class User extends \App\core\Model {
 
     public $username;
     public $password_hash;
+    public $user_role;
 
     public function __construct() {
         parent::__construct();
@@ -20,6 +21,13 @@ class User extends \App\core\Model {
     public function find($username) {
         $stmt = self::$connection->prepare("SELECT * FROM user WHERE username = :username");
         $stmt->execute(['username' => $username]);
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\User");
+        return $stmt->fetch();
+    }
+
+    public function findByUserId($user_id) {
+        $stmt = self::$connection->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        $stmt->execute(['user_id' => $user_id]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\User");
         return $stmt->fetch();
     }

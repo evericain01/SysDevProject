@@ -9,6 +9,7 @@ class RMA extends \App\core\Model {
     public $toner_id; //Can be null
     public $date;
     public $rma_reason;
+    public $rma_quantity;
 
     public function __construct() {
         parent::__construct();
@@ -27,9 +28,9 @@ class RMA extends \App\core\Model {
     }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO rma(printer_id, toner_id, date, rma_reason) 
-        VALUES (:printer_id, :toner_id, UTC_TIMESTAMP(), :rma_reason)");
-        $stmt->execute(['printer_id' =>$this->printer_id, 'toner_id' => $this->toner_id, 'rma_reason' => $this->rma_reason]);
+        $stmt = self::$connection->prepare("INSERT INTO rma(printer_id, toner_id, date, rma_reason, rma_quantity) 
+        VALUES (:printer_id, :toner_id, UTC_TIMESTAMP(), :rma_reason, :rma_quantity)");
+        $stmt->execute(['printer_id' =>$this->printer_id, 'toner_id' => $this->toner_id, 'rma_reason' => $this->rma_reason , 'rma_quantity' => $this->rma_quantity]);
     }
 
     public function delete() {

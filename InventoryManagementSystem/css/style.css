@@ -4,35 +4,12 @@ body {
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
-
 .allOrders {
     text-align: left;
 }
 
-.invoices {
-    text-align: left;
-}
-
-.search {
-    text-align: left;
-}
-
-textarea {
-    width: 238px;
-    height: 80px;
-}
-
-.review {
-    text-align: left;
-    font-size: 15px;
-}
-
 .homePageTitle {
     font-size: 30px;
-}
-
-.language {
-    font-size: 15px;
 }
 
 .homePageLink {

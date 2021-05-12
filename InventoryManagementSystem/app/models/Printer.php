@@ -8,7 +8,6 @@ class Printer extends \App\core\Model {
     public $printer_model;
     public $printer_brand;
     public $quantity;
-    public $rma_status; //should be an enum (check, unchecked)
 
     public function __construct() {
         parent::__construct();
@@ -121,44 +120,44 @@ class Printer extends \App\core\Model {
         return $stmt->fetchAll();
     }
 
-    public function searchAllRma($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword)");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortName($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY printer_model");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortNameDesc($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY printer_model DESC");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortStock($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY quantity");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
-        return $stmt->fetchAll();
-    }
-
-    public function searchAllRmaSortStockDesc($keyword) {
-        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY quantity DESC");
-        $stmt->execute(['keyword'=>"%".$keyword."%"]);
-        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
-        return $stmt->fetchAll();
-    }
+//    public function searchAllRma($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword)");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortName($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY printer_model");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortNameDesc($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY printer_model DESC");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortStock($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY quantity");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+//        return $stmt->fetchAll();
+//    }
+//
+//    public function searchAllRmaSortStockDesc($keyword) {
+//        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE rma_status = 'check' AND (printer_model LIKE :keyword OR printer_brand LIKE :keyword) ORDER BY quantity DESC");
+//        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+//        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+//        return $stmt->fetchAll();
+//    }
 
     public function insert() {
-        $stmt = self::$connection->prepare("INSERT INTO printer(printer_model, printer_brand, quantity, rma_status) 
-        VALUES (:printer_model, :printer_brand, :quantity, :rma_status)");
+        $stmt = self::$connection->prepare("INSERT INTO printer(printer_model, printer_brand, quantity) 
+        VALUES (:printer_model, :printer_brand, :quantity)");
         $stmt->execute(['printer_model' =>
             $this->printer_model, 'printer_brand' => $this->printer_brand, 'quantity' => $this->quantity,
             'rma_status' => $this->rma_status]);
@@ -170,9 +169,9 @@ class Printer extends \App\core\Model {
     }
 
     public function update() {
-        $stmt = self::$connection->prepare("UPDATE printer SET printer_id=:printer_id, printer_model=:printer_model, printer_brand=:printer_brand, quantity=:quantity, rma_status=:rma_status WHERE printer_id=:printer_id");
+        $stmt = self::$connection->prepare("UPDATE printer SET printer_id=:printer_id, printer_model=:printer_model, printer_brand=:printer_brand, quantity=:quantity WHERE printer_id=:printer_id");
         $stmt->execute(['printer_id' => $this->printer_id, 'printer_model' => $this->printer_model, 
-            'printer_brand' => $this->printer_brand, 'quantity' => $this->quantity,'rma_status' => $this->rma_status]);
+            'printer_brand' => $this->printer_brand, 'quantity' => $this->quantity]);
     }
 
 }

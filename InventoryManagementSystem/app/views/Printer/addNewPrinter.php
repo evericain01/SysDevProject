@@ -2,17 +2,17 @@
     <head>
         <link rel="stylesheet" href="<?= BASE ?>/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="<?= BASE ?>/css/style.css" type="text/css">
-        <title>Edit Printer</title>
+        <title>Add Printer</title>
     </head>
 
     <body>
-        <?php
-        echo "<b style='font-size: 25px;'>Printer: " . $data->printer_brand . " " . $data->printer_model . "</b><br><br><br><br>";
-        ?>
 
+        <h2>Adding New Printer:</h2><br><br>
         <form style='text-align:left' method="post" action="">
-            <label>New Quantity: <input type="number" step="1" min="0" name="quantity" style="width: 53px;" value="<?= $data->quantity ?>"/></label><br><br>
-            <input type="submit" name="action" class="btn btn-success" value="Submit Changes" />
+            <label>Printer Brand: <input type="text" name="brand"/></label><br><br>
+            <label>Printer Model: <input type="text" name="model"/></label><br><br>
+            <label>Printer Quantity: <input type="number" step="1" min="0" style="width: 53px;" name="quantity"/></label><br><br>
+            <input type="submit" name="action" class="btn btn-success" value="Add Printer" />
         </form>
 
         <?php

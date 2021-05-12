@@ -35,11 +35,14 @@ class DefaultController extends \App\core\Controller {
                 $manager = new \App\models\Manager();
                 $manager = $manager->find($manager_id);
 
-                $this->view('Manager/managerMainPage', $manager);
+                header('location:' . BASE . '/Manager/index');
+                return;
             } else
-                header('location:' . BASE . '/Login/register?error=Passwords do not match!');
+                echo "<div style='color: red; font-size:20px'> Passwords do not match.</div><br>";
+                $this->view('Default/createAccount');
+                return;
         } else {
-            $this->view('Login/createAccount');
+            $this->view('Default/createAccount');
         }
     }
 
@@ -69,17 +72,17 @@ class DefaultController extends \App\core\Controller {
                         $user->password_hash = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                         $user->update($_SESSION['username']);
                     } else {
-                        echo "Password does not match.<br><br>";
+                        echo "<div style='color: red; font-size:20px'>Password does not match.</div><br><";
                         $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
                         return;
                     }
                 } else {
-                    echo "Invalid old password.<br><br>";
+                    echo "<div style='color: red; font-size:20px'>Invalid old password.</div><br>";
                     $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
                     return;
                 }
             } else {
-                echo "Input a new password.<br><br>";
+                echo "<div style='color: red; font-size:20px'>Input a new password.</div><br>";
                 $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
                 return;
             }
@@ -118,17 +121,17 @@ class DefaultController extends \App\core\Controller {
                         $user->password_hash = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                         $user->update($_SESSION['username']);
                     } else {
-                        echo "Password does not match.<br><br>";
+                        echo "<div style='color: red; font-size:20px'>Password does not match.</div><br>";
                         $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
                         return;
                     }
                 } else {
-                    echo "Invalid old password.<br><br>";
+                    echo "<div style='color: red; font-size:20px'>Invalid old password.</div><br>";
                     $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
                     return;
                 }
             } else {
-                echo "Input a new password.<br><br>";
+                echo "<div style='color: red; font-size:20px'>Input a new password.</div><br>";
                 $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
                 return;
             }

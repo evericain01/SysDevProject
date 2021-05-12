@@ -43,24 +43,6 @@ class PrinterController extends \App\core\Controller {
                     } else {
                         $printer = $printer->searchPrinterBrand($keyword);
                     }
-                } elseif ($_POST['filter'] == 'rma'){
-                    if(isset($_POST['sort'])){
-                        if($_POST['sort'] == 'nameAsc'){
-                            $printer = $printer->searchAllRmaSortName($keyword);
-                        } elseif ($_POST['sort'] == 'nameDesc') {
-                            $printer = $printer->searchAllRmaSortNameDesc($keyword);
-                        } elseif ($_POST['sort'] == 'stockAsc') {
-                            $printer = $printer->searchAllRmaSortStock($keyword);
-                        } elseif ($_POST['sort'] == 'stockDesc') {
-                            $printer = $printer->searchAllRmaSortStockDesc($keyword);
-                        } else {
-                            $printer = $printer->searchAllRma($keyword);
-                        }
-                    } else {
-                        $printer = $printer->searchAllRma($keyword);
-                    }
-                } else {
-                    $printer = $printer->getAllPrinters();
                 }
             } else {
                 if(isset($_POST['sort'])){
@@ -93,16 +75,14 @@ class PrinterController extends \App\core\Controller {
         if (isset($_POST["action"])) {
             $printer = new \App\models\Printer();
 
-            $printer->printer_model = $_POST["printer_model"];
-            $printer->printer_brand = $_POST["printer_brand"];
-            $printer->quantity = 1;
-
-            $printer->rma_status = 'unchecked';
+            $printer->printer_model = $_POST["model"];
+            $printer->printer_brand = $_POST["brand"];
+            $printer->quantity = $_POST["quantity"];
 
             $printer->insert();
             header("location:" . BASE . "/Printer/index");
         } else {
-            $this->view('Printer/viewPrinterStock');
+            $this->view('Printer/addNewPrinter');
         }
     }
 
@@ -112,10 +92,6 @@ class PrinterController extends \App\core\Controller {
             $printer = $printer->find($printer_id);
 
             $printer->quantity = $_POST["quantity"];
-
-            if ($_SESSION['user_role'] == 'Manager') {
-                $printer->rma_status = $_POST["rma"];
-            }
 
             $printer->update();
             header("location:" . BASE . "/Printer/index");

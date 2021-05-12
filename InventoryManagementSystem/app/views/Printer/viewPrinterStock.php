@@ -6,52 +6,59 @@
     </head>
     <body>
 
-        <h2>List of Printers</h2><br><br>
+        <h1>Printer Inventory</h1>
 
-        <?php        
-
-        echo "
-        </br>
-        <form action='' method='post'>";
-        echo "<a href=''>View Stock History</a>&nbsp&nbsp&nbsp";
-        echo "<input type='text' id='keyword' placeholder='Search printers' name='keyword'></br>";
+        <?php
+        echo "<form action='' method='post'>";
+        echo "<a href='' style='font-size:17px'>[View Printer Stock History]</a>&nbsp&nbsp&nbsp<br><br><br>";
+        echo "<input type='text' id='keyword' placeholder='Search Printers' name='keyword'></br>";
 
         // Loop for adding spaces to line up both hyperlinks. Remove if you know a better way.
-        for($count = 0; $count < 56; $count++){
+        for ($count = 0; $count < 56; $count++) {
             echo "&nbsp";
         }
+
         echo "</br>
-            <select name='sort' id='sort'>
-                <option disabled selected>Select sorting</option>
-                <option value='nameAsc'> Name ascending</option>
-                <option value='nameDesc'> Name descending </option>
-                <option value='stockAsc'> Stock ascending</option>
-                <option value='stockDesc'> Stock descending </option>
-            </select>
             <select name='filter' id='filter'>
-                <option disabled selected>Select filter</option>
-                <option value='model'> Printer model </option>
-                <option value='brand'> Printer brand </option>
-                <option value='rma'> RMA </option>
+                <option disabled selected>Filter By</option>
+                <option value='brand'> Printer Brand </option>
+                <option value='model'> Printer Model </option>
             </select>
-        <input type='submit' name='action' value='Apply' />
+            <select name='sort' id='sort'>
+                <option disabled selected>Sort By</option>
+                <option value='nameAsc'> Name Ascending</option>
+                <option value='nameDesc'> Name Descending </option>
+                <option value='stockAsc'> Quantity Ascending </option>
+                <option value='stockDesc'> Quantity Descending </option>
+            </select>
+
+        <input type='submit' name='action' class='btn btn-primary' style='padding: 4px 4px;' value='Apply' />
         </form>";
+        
+        echo "<br><h4 style='text-align:left'><a href='" . BASE . "/Printer/add' class='btn btn-success'>Add A New Printer</a></h4><br>";
 
         echo "<div style='text-align:left'>";
-        echo "<b><u><h5>Printers:</h5></u></b><br>";
+        echo "<b><u><h4>Printers:</h4></u></b><br>";
 
         $count = 1;
         foreach ($data as $printer) {
-
-            echo "&nbsp
-                $count. $printer->printer_brand $printer->printer_model (Quantity: $printer->quantity)
-                <a href='".BASE."/Printer/update/$printer->printer_id'>Edit quantity</a>
-                </br>
-            ";
-            $count++;                        
+            echo "<div style='border-style: ridge; width: 600px; margin-top:5px; margin-bottom:5px; padding-top:5px; padding-bottom:5px;'>";
+            echo "&nbsp $count. <b>$printer->printer_brand</b> $printer->printer_model (<u>Quantity: $printer->quantity</u>)
+                <div style='text-align:right;'><a href='" . BASE . "/Printer/update/$printer->printer_id' class='btn btn-info' style='padding: 2px 2px;'>Edit Quantity</a> ";
+            if ($_SESSION['user_role'] == 'Manager') {
+                echo "&#124; <a href='" . BASE . "/RMA/rmaPrinter/$printer->printer_id' class='btn btn-warning' style='padding: 2px 2px;'>File RMA</a>";
+            }
+            echo "</div>";
+            echo "</div>";
+            $count++;
         }
 
-        echo "<br><br><div class='homepageLink'><h4><a href='" . BASE . "/Employee/index' class='btn btn-light'>&#8592 Go Back to Main Page</a></h4></div>";
+        if ($_SESSION['user_role'] == 'Manager') {
+            echo "<br><br><div class='homepageLink'><h4><a href='" . BASE . "/Manager/index' class='btn btn-light'>&#8592 Go Back to Main Page</a></h4></div>";
+        } else {
+            echo "<br><br><div class='homepageLink'><h4><a href='" . BASE . "/Employee/index' class='btn btn-light'>&#8592 Go Back to Main Page</a></h4></div>";
+        }
+
         echo "</div>"
         ?>
     </body>
