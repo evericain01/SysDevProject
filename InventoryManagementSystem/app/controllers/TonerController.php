@@ -5,15 +5,24 @@ namespace App\controllers;
 class TonerController extends \App\core\Controller {
 
     function index() {
+
+        // Checks if the form was submitted.
         if (isset($_POST["action"])) {
 
+            // Sets the keyword to what was in the search text input.
             $keyword = $_POST["keyword"];
+
+            // Creates a new toner model
             $toner = new \App\models\Toner();
 
+            // Checks if the user has set a filter.
             if (isset($_POST['filter'])) {
+                // Checks if the filter is set to model.
                 if ($_POST['filter'] == 'model') {
+                    // Checks if the user has set a sorting method.
+                    // Sets toner to an array of toner objects by searching the toners by model then sorting by the chosen method.
                     if (isset($_POST['sort'])) {
-                        if ($_POST['sort'] == 'nameAsc') {
+                        if ($_POST['sort'] == 'nameAsc') {                            
                             $toner = $toner->searchTonerModelAsc($keyword);
                         } elseif ($_POST['sort'] == 'nameDesc') {
                             $toner = $toner->searchTonerModelDesc($keyword);
@@ -27,7 +36,10 @@ class TonerController extends \App\core\Controller {
                     } else {
                         $toner = $toner->searchTonerModel($keyword);
                     }
+                // Checks if the filter is set to brand.
                 } elseif ($_POST['filter'] == 'brand') {
+                    // Checks if the user has set a sorting method.
+                    // Sets toner to an array of toner objects by searching the toners by brand then sorting by the chosen method.
                     if (isset($_POST['sort'])) {
                         if ($_POST['sort'] == 'nameAsc') {
                             $toner = $toner->searchTonerBrandAsc($keyword);
@@ -45,23 +57,25 @@ class TonerController extends \App\core\Controller {
                     }
                 }
             } else {
+                // Checks if only a sorting method is set.
+                // Sets toner to an array of toner objects by searching the toners by brand and model then sorting by the chosen method.
                 if (isset($_POST['sort'])) {
                     if ($_POST['sort'] == 'nameAsc') {
-                        $toner = $toner->getAllTonersSortName();
+                        $toner = $toner->searchAllTonersSortName($keyword);
                     } elseif ($_POST['sort'] == 'nameDesc') {
-                        $toner = $toner->getAllTonersSortNameDesc();
+                        $toner = $toner->searchAllTonersSortNameDesc($keyword);
                     } elseif ($_POST['sort'] == 'stockAsc') {
-                        $toner = $toner->getAllTonersSortStock();
+                        $toner = $toner->searchAllTonersSortStock($keyword);
                     } elseif ($_POST['sort'] == 'stockDesc') {
-                        $toner = $toner->getAllTonersSortStockDesc();
+                        $toner = $toner->searchAllTonersSortStockDesc($keyword);
                     } else {
-                        $toner = $toner->searchTonerModel($keyword);
+                        $toner = $toner->searchAllToner($keyword);
                     }
                 } else {
-                    $toner = $toner->getAllToners();
+                    $toner = $toner->searchAllToner($keyword);
                 }
             }
-
+            
             $this->view('Toner/viewTonerStock', $toner);
         } else {
             $toner = new \App\models\Toner();

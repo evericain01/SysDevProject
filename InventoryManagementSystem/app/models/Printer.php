@@ -96,26 +96,37 @@ class Printer extends \App\core\Model {
         return $stmt->fetchAll();
     }
 
-    public function getAllPrintersSortName() {
-        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY printer_model");
+    public function searchAllPrinters($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
         return $stmt->fetchAll();
     }
 
-    public function getAllPrintersSortNameDesc() {
-        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY printer_model DESC");
+    public function searchAllPrintersSortName($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword ORDER BY printer_model");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
         return $stmt->fetchAll();
     }
 
-    public function getAllPrintersSortStock() {
-        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY quantity");
+    public function searchAllPrintersSortNameDesc($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword ORDER BY printer_model DESC");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
         return $stmt->fetchAll();
     }
 
-    public function getAllPrintersSortStockDesc() {
-        $stmt = self::$connection->query("SELECT * FROM printer ORDER BY quantity DESC");
+    public function searchAllPrintersSortStock($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword ORDER BY quantity");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
+        return $stmt->fetchAll();
+    }
+
+    public function searchAllPrintersSortStockDesc($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM printer WHERE printer_brand LIKE :keyword OR printer_model LIKE :keyword ORDER BY quantity DESC");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Printer");
         return $stmt->fetchAll();
     }

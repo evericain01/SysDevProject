@@ -96,26 +96,37 @@ class Toner extends \App\core\Model {
         return $stmt->fetchAll();
     }
 
-    public function getAllTonersSortName() {
-        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY toner_model");
+    public function searchAllToner($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE toner_model LIKE :keyword OR toner_brand LIKE :keyword");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
         return $stmt->fetchAll();
     }
 
-    public function getAllTonersSortNameDesc() {
-        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY toner_model DESC");
+    public function searchAllTonersSortName($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE toner_model LIKE :keyword OR toner_brand LIKE :keyword ORDER BY toner_model");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
         return $stmt->fetchAll();
     }
 
-    public function getAllTonersSortStock() {
-        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY quantity");
+    public function searchAllTonersSortNameDesc($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE toner_model LIKE :keyword OR toner_brand LIKE :keyword ORDER BY toner_model DESC");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
         return $stmt->fetchAll();
     }
 
-    public function getAllTonersSortStockDesc() {
-        $stmt = self::$connection->query("SELECT * FROM toner ORDER BY quantity DESC");
+    public function searchAllTonersSortStock($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE toner_model LIKE :keyword OR toner_brand LIKE :keyword ORDER BY quantity");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
+        $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
+        return $stmt->fetchAll();
+    }
+
+    public function searchAllTonersSortStockDesc($keyword) {
+        $stmt = self::$connection->prepare("SELECT * FROM toner WHERE toner_model LIKE :keyword OR toner_brand LIKE :keyword ORDER BY quantity DESC");
+        $stmt->execute(['keyword'=>"%".$keyword."%"]);
         $stmt->setFetchMode(\PDO::FETCH_GROUP | \PDO::FETCH_CLASS, "App\\models\\Toner");
         return $stmt->fetchAll();
     }
