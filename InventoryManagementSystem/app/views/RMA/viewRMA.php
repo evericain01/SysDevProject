@@ -10,7 +10,7 @@
 
         echo "<div style='text-align:left;'><i>(*Sorted by most recent RMA reports)</i></div><br><br>";
         echo "<div style='text-align:left;'>";
-        
+
         // using the array_reverse function to sort by date.
         foreach (array_reverse($data['rmas']) as $rma) {
             if ($rma->printer_id != null) {
@@ -26,9 +26,8 @@
                             echo "<a href='" . BASE . "/RMA/delete/$rma->rma_id' style='padding: 2px 2px; margin-top: 5px;' class='btn btn-danger'>REMOVE RMA</a><br>";
                         }
                         echo "</div>";
-                        echo "<hr style='width:30%;background-color:black;text-align:left;margin-left:0'>";
+                        echo "<hr style='width:325px;background-color:black;text-align:left;margin-left:0'>";
                     }
-                    
                 }
             } else {
                 foreach (array_reverse($data['toners']) as $toner) {
@@ -43,9 +42,8 @@
                             echo "<a href='" . BASE . "/RMA/delete/$rma->rma_id' style='padding: 2px 2px; margin-top: 5px;' class='btn btn-danger'>REMOVE RMA</a><br>";
                         }
                         echo "</div>";
-                        echo "<hr style='width:30%;background-color:black;text-align:left;margin-left:0'>";
+                        echo "<hr style='width:325px;background-color:black;text-align:left;margin-left:0'>";
                     }
-                    
                 }
             }
         }

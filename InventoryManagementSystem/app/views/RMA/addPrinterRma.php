@@ -7,7 +7,9 @@
 
     <body>
         <?php
-        echo "<b style='font-size: 25px;'>Printer: " . $data->printer_brand . " " . $data->printer_model . "</b><br><br><br><br>";
+        echo "<b style='font-size: 25px;'>Printer: " . $data->printer_brand . " " . $data->printer_model . "</b><br><br>";
+        if (isset($_GET['error']))
+            echo "<div style='color: red; font-size:20px'>" . $_GET['error'] . "</div><br>";
         ?>
 
         <form style='text-align:left' method="post" action="">
