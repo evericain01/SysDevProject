@@ -39,8 +39,8 @@ class DefaultController extends \App\core\Controller {
                 return;
             } else
                 echo "<div style='color: red; font-size:20px'> Passwords do not match.</div><br>";
-                $this->view('Default/createAccount');
-                return;
+            $this->view('Default/createAccount');
+            return;
         } else {
             $this->view('Default/createAccount');
         }
@@ -82,12 +82,11 @@ class DefaultController extends \App\core\Controller {
                     return;
                 }
             } else {
-                echo "<div style='color: red; font-size:20px'>Input a new password.</div><br>";
-                $this->view('Manager/modifyManagerAccount', ['user' => $user, 'manager' => $manager]);
+                header('location:' . BASE . '/Manager/index');
                 return;
             }
 
-            $this->view('Manager/managerMainPage', $manager);
+            header('location:' . BASE . '/Manager/index');
         } else {
             $manager = new \App\models\Manager();
             $manager = $manager->find($manager_id);
@@ -131,12 +130,11 @@ class DefaultController extends \App\core\Controller {
                     return;
                 }
             } else {
-                echo "<div style='color: red; font-size:20px'>Input a new password.</div><br>";
-                $this->view('Employee/modifyEmployeeAccount', ['user' => $user, 'employee' => $employee]);
+                header('location:' . BASE . '/Employee/index');
                 return;
             }
 
-            $this->view('Employee/employeeMainPage', $employee);
+            header('location:' . BASE . '/Employee/index');
         } else {
             $employee = new \App\models\Employee();
             $employee = $employee->find($employee_id);
