@@ -38,26 +38,26 @@ class PrinterController extends \App\core\Controller {
                         }
                     } else {
                         $printer = $printer->searchPrinterModel($keyword);
-                    }
-                }
-                // Checks if the filter is set to brand.
-            } elseif ($_POST['filter'] == 'brand') {
-                // Checks if the user has set a sorting method.
-                // Sets printer to an array of printer objects by searching the printers by brand then sorting by the chosen method.
-                if (isset($_POST['sort'])) {
-                    if ($_POST['sort'] == 'nameAsc') {
-                        $printer = $printer->searchPrinterBrandAsc($keyword);
-                    } elseif ($_POST['sort'] == 'nameDesc') {
-                        $printer = $printer->searchPrinterBrandDesc($keyword);
-                    } elseif ($_POST['sort'] == 'stockAsc') {
-                        $printer = $printer->searchPrinterBrandStockAsc($keyword);
-                    } elseif ($_POST['sort'] == 'stockDesc') {
-                        $printer = $printer->searchPrinterBrandStockDesc($keyword);
+                    }                    
+                  // Checks if the filter is set to brand.
+                } elseif ($_POST['filter'] == 'brand') {                
+                    // Checks if the user has set a sorting method.
+                    // Sets printer to an array of printer objects by searching the printers by brand then sorting by the chosen method.
+                    if (isset($_POST['sort'])) {
+                        if ($_POST['sort'] == 'nameAsc') {
+                            $printer = $printer->searchPrinterBrandAsc($keyword);
+                        } elseif ($_POST['sort'] == 'nameDesc') {
+                            $printer = $printer->searchPrinterBrandDesc($keyword);
+                        } elseif ($_POST['sort'] == 'stockAsc') {
+                            $printer = $printer->searchPrinterBrandStockAsc($keyword);
+                        } elseif ($_POST['sort'] == 'stockDesc') {
+                            $printer = $printer->searchPrinterBrandStockDesc($keyword);
+                        } else {
+                            $printer = $printer->searchPrinterBrand($keyword);
+                        }
                     } else {
                         $printer = $printer->searchPrinterBrand($keyword);
                     }
-                } else {
-                    $printer = $printer->searchPrinterBrand($keyword);
                 }
             } else {
                 // Checks if only a sorting method is set.
@@ -83,7 +83,7 @@ class PrinterController extends \App\core\Controller {
             $printer = new \App\models\Printer();
             $printer = $printer->getAllPrinters();
             $this->view('Printer/viewPrinterStock', $printer);
-        }
+        }        
     }
 
     function add() {
