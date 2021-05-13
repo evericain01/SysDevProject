@@ -16,10 +16,19 @@ class DefaultController extends \App\core\Controller {
                 $user->password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $user->user_role = "Employee";
 
+                if ($user->username == "") {
+                    header('location:' . BASE . "/Default/register/$manager_id?error=Please enter a username.");
+                    return;
+                }
+                if ($user->password_hash == "") {
+                    header('location:' . BASE . "/Default/register/$manager_id?error=Please enter a password.");
+                    return;
+                }
+
                 $result = $user->insert();
 
                 if ($result == false) {
-                    header('location:' . BASE . '/Default/register?error=Passwords do not match!');
+                    header('location:' . BASE . "/Default/register/$manager_id?error=Passwords do not match.");
                     return;
                 }
 
@@ -29,6 +38,23 @@ class DefaultController extends \App\core\Controller {
                 $employee->last_name = $_POST['last_name'];
                 $employee->email = $_POST['email'];
                 $employee->phone_No = $_POST['phone_No'];
+
+                if ($employee->first_name == "") {
+                    header('location:' . BASE . "/Default/register/$manager_id?error=Please enter a first name.");
+                    return;
+                }
+                if ($employee->last_name == "") {
+                    header('location:' . BASE . "/Default/register/$manager_id?error=Please enter a last name.");
+                    return;
+                }
+                if ($employee->email == "") {
+                    header('location:' . BASE . "/Default/register/$manager_id?error=Please enter an email.");
+                    return;
+                }
+                if ($employee->phone_No == "") {
+                    header('location:' . BASE . "/Default/register/$manager_id?error=Please enter a phone number.");
+                    return;
+                }
 
                 $employee->insert();
 
