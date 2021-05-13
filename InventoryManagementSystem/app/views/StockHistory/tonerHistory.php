@@ -8,7 +8,7 @@
         <h2>Stock History Changes [Toners]</h2><br><br>
 
         <?php
-        echo "<div style='text-align:left;'><i>(*Sorted by most recent changes)</i></div><br><br>";
+        echo "<div style='text-align:left;'><i>*(Sorted by most recent changes)</i></div><br><br>";
         echo "<div style='text-align:left;'>";
         echo "<b><u><h4>Toner Changes:</h4></u></b><br>";
         echo "<hr style='width:325px;text-align:left;background-color:black;margin-left:0'>";
@@ -17,8 +17,8 @@
                 if ($change->user_id == $user->user_id) {
                     foreach ($data['toners'] as $toner) {
                         if ($change->toner_id == $toner->toner_id) {
-                            echo "<b>Toner model:</b> $toner->toner_model<br>";
-                            echo "<b>Toner brand:</b> $toner->toner_brand<br><br>";
+                            echo "<b>Toner Model:</b> $toner->toner_model<br>";
+                            echo "<b>Toner Brand:</b> $toner->toner_brand<br><br>";
                             echo "<mark style='background-color: yellow;'>$change->type_of_change</mark><br><br>";
                             echo "<b>Name: </b>" . $change->worker_name . ' (' . $user->username . ')' . "<br>";
                             echo "<b style='color:red;'>Date of Change:</b> $change->date<br>";
